@@ -1,7 +1,7 @@
 # Root level submodules - AI Core Components
 [submodule "anya-core/dash33"]
-    path = anya-core/dash33
-    url = https://github.com/Anya-org/dash33.git
+	path = anya-core/dash33
+	url = https://github.com/Anya-org/dash33.git
     branch = main
     update = merge
     fetchRecurseSubmodules = true
