@@ -6,69 +6,48 @@ param (
     [switch]$DryRun = $false
 )
 
-$ErrorActionPreference = "Stop"
+# Define constants
 $ORG_NAME = "Anya-org"
 $TEMPLATE_DIR = Join-Path $PSScriptRoot ".github-templates"
 
-# Colors for output
-$COLOR_INFO = "Cyan"
-$COLOR_SUCCESS = "Green"
-$COLOR_WARNING = "Yellow"
-$COLOR_ERROR = "Red"
+Write-Host "`n==== Anya-org Repository Sync ====" -ForegroundColor Cyan
+Write-Host "This script will sync all repositories in the Anya-org organization with standardized templates."
 
-function Write-Title {
-    param (
-        [string]$Title
-    )
-    Write-Host "`n==== $Title ====" -ForegroundColor $COLOR_INFO
+if (-not (Test-Path $TEMPLATE_DIR)) {
+    Write-Host "✗ Template directory not found at $TEMPLATE_DIR" -ForegroundColor Red
+    exit 1
 }
 
-function Write-Step {
-    param (
-        [string]$Step
-    )
-    Write-Host "→ $Step" -ForegroundColor $COLOR_INFO
-}
-
-function Write-Success {
-    param (
-        [string]$Message
-    )
-    Write-Host "✓ $Message" -ForegroundColor $COLOR_SUCCESS
-}
-
-function Write-Warning {
-    param (
-        [string]$Message
-    )
-    Write-Host "⚠ $Message" -ForegroundColor $COLOR_WARNING
-}
-
-function Write-Error {
-    param (
-        [string]$Message
-    )
-    Write-Host "✗ $Message" -ForegroundColor $COLOR_ERROR
-}
-
-function Get-Repositories {
-    Write-Step "Fetching repositories for $ORG_NAME..."
-    
-    if (-not $GithubToken) {
-        Write-Warning "No GitHub token provided. Using public API with rate limits."
-        $headers = @{}
-    } else {
-        $headers = @{
-            Authorization = "token $GithubToken"
-        }
+# Prompt for GitHub token if not provided
+if (-not $GithubToken) {
+    $GithubToken = Read-Host "Enter GitHub token (leave blank to continue without token)"
+    if ([string]::IsNullOrWhiteSpace($GithubToken)) {
+        $GithubToken = $null
     }
+}
+
+Write-Host "`n==== Starting repository sync process ====" -ForegroundColor Cyan
+
+if ($DryRun) {
+    Write-Host "⚠ Running in DRY-RUN mode. No changes will be made." -ForegroundColor Yellow
+}
+
+# Fetch repositories
+Write-Host "→ Fetching repositories for $ORG_NAME..." -ForegroundColor Cyan
+
+$headers = @{}
+if ($GithubToken) {
+    $headers.Add("Authorization", "token $GithubToken")
+} else {
+    Write-Host "⚠ No GitHub token provided. Using public API with rate limits." -ForegroundColor Yellow
+}
+
+$page = 1
+$allRepos = @()
     
-    $page = 1
-    $allRepos = @()
-    
-    do {
-        # Use backtick to escape ampersand
-        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100`&page=$page"
+do {
+    try {
+        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100&page=$page"
         $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers -Method Get
         
         if ($response.Count -eq 0) {
@@ -77,54 +56,64 @@ function Get-Repositories {
         
         $allRepos += $response
         $page++
-    } while ($response.Count -eq 100)
-    
-    Write-Success "Found $($allRepos.Count) repositories"
-    return $allRepos
-}
+    } catch {
+        Write-Host "✗ Error fetching repositories: $_" -ForegroundColor Red
+        exit 1
+    }
+} while ($response.Count -eq 100)
 
-function Sync-Repository {
-    param (
-        [PSObject]$Repo
-    )
-    
-    $repoName = $Repo.name
-    $repoUrl = $Repo.clone_url
+Write-Host "✓ Found $($allRepos.Count) repositories" -ForegroundColor Green
+
+# Process each repository
+$successCount = 0
+$failCount = 0
+
+foreach ($repo in $allRepos) {
+    $repoName = $repo.name
+    $repoUrl = $repo.clone_url
     $tempDir = Join-Path $env:TEMP "anya-sync-$repoName"
     
-    Write-Title "Syncing repository: $repoName"
+    Write-Host "`n==== Syncing repository: $repoName ====" -ForegroundColor Cyan
     
     if (Test-Path $tempDir) {
         Remove-Item -Recurse -Force $tempDir
     }
     
     # Clone the repository
-    Write-Step "Cloning $repoUrl to $tempDir..."
+    Write-Host "→ Cloning $repoUrl to $tempDir..." -ForegroundColor Cyan
     if (-not $DryRun) {
-        & git clone $repoUrl $tempDir
-        
-        if ($LASTEXITCODE -ne 0) {
-            Write-Error "Failed to clone repository"
-            return $false
+        try {
+            & git clone $repoUrl $tempDir
+            if ($LASTEXITCODE -ne 0) {
+                throw "Git clone failed with exit code $LASTEXITCODE"
+            }
+        } catch {
+            Write-Host "✗ Failed to clone repository: $_" -ForegroundColor Red
+            $failCount++
+            continue
         }
     }
     
     # Create a new branch
     $branchName = "sync/github-templates-$(Get-Date -Format 'yyyyMMdd')"
-    Write-Step "Creating branch: $branchName..."
+    Write-Host "→ Creating branch: $branchName..." -ForegroundColor Cyan
     if (-not $DryRun) {
-        Push-Location $tempDir
-        & git checkout -b $branchName
-        
-        if ($LASTEXITCODE -ne 0) {
-            Write-Error "Failed to create branch"
+        try {
+            Push-Location $tempDir
+            & git checkout -b $branchName
+            if ($LASTEXITCODE -ne 0) {
+                throw "Git checkout failed with exit code $LASTEXITCODE"
+            }
+        } catch {
+            Write-Host "✗ Failed to create branch: $_" -ForegroundColor Red
             Pop-Location
-            return $false
+            $failCount++
+            continue
         }
     }
     
     # Create necessary directories
-    Write-Step "Creating directories..."
+    Write-Host "→ Creating directories..." -ForegroundColor Cyan
     if (-not $DryRun) {
         $githubDir = Join-Path $tempDir ".github"
         $issueTemplateDir = Join-Path $githubDir "ISSUE_TEMPLATE"
@@ -144,7 +133,7 @@ function Sync-Repository {
     }
     
     # Copy templates
-    Write-Step "Copying templates..."
+    Write-Host "→ Copying templates..." -ForegroundColor Cyan
     if (-not $DryRun) {
         # Root files
         Copy-Item -Path (Join-Path $TEMPLATE_DIR "CONTRIBUTING-template.md") -Destination (Join-Path $tempDir "CONTRIBUTING.md") -Force
@@ -160,7 +149,7 @@ function Sync-Repository {
         
         # Workflows for Rust projects
         if (Test-Path (Join-Path $tempDir "Cargo.toml")) {
-            Write-Step "Detected Rust project, adding Rust-specific workflows..."
+            Write-Host "→ Detected Rust project, adding Rust-specific workflows..." -ForegroundColor Cyan
             Copy-Item -Path (Join-Path $TEMPLATE_DIR "rust-ci-workflow.yml") -Destination (Join-Path $workflowsDir "rust.yml") -Force
             Copy-Item -Path (Join-Path $TEMPLATE_DIR "security-scan-workflow.yml") -Destination (Join-Path $workflowsDir "security-scan.yml") -Force
             Copy-Item -Path (Join-Path $PSScriptRoot "security-scan.ps1") -Destination (Join-Path $tempDir "security-scan.ps1") -Force
@@ -168,11 +157,11 @@ function Sync-Repository {
     }
     
     # Commit changes
-    Write-Step "Committing changes..."
+    Write-Host "→ Committing changes..." -ForegroundColor Cyan
     if (-not $DryRun) {
-        & git add .
-        & git commit -m @"
-chore: Sync GitHub templates and standards
+        try {
+            & git add .
+            & git commit -m "chore: Sync GitHub templates and standards
 
 Apply organization-wide templates:
 * Add contributing guidelines
@@ -184,40 +173,43 @@ Apply organization-wide templates:
 
 This ensures consistency across all Anya-org repositories and
 aligns with our Bitcoin principles of decentralization,
-security, privacy, and compatibility.
-"@
-        
-        if ($LASTEXITCODE -ne 0) {
-            Write-Warning "No changes to commit or commit failed"
+security, privacy, and compatibility."
+
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "⚠ No changes to commit or commit failed" -ForegroundColor Yellow
+                Pop-Location
+                continue
+            }
+        } catch {
+            Write-Host "✗ Failed to commit changes: $_" -ForegroundColor Red
             Pop-Location
-            return $false
+            $failCount++
+            continue
         }
     }
     
     # Push changes and create PR
-    Write-Step "Pushing changes and creating PR..."
+    Write-Host "→ Pushing changes and creating PR..." -ForegroundColor Cyan
     if (-not $DryRun) {
-        if ($GithubToken) {
-            # Configure git with token for push
-            $repoUrlWithToken = $repoUrl -replace "https://", "https://$GithubToken@"
-            & git push -u "$repoUrlWithToken" $branchName
-        } else {
-            & git push -u origin $branchName
-        }
-        
-        if ($LASTEXITCODE -ne 0) {
-            Write-Error "Failed to push changes"
-            Pop-Location
-            return $false
-        }
-        
-        # Create PR using GitHub API
-        if ($GithubToken) {
-            $prUrl = "https://api.github.com/repos/$ORG_NAME/$repoName/pulls"
-            $prBody = @{
-                title = "Sync GitHub templates and standards"
-                body = @"
-This PR syncs the repository with organization-wide templates and standards:
+        try {
+            if ($GithubToken) {
+                # Configure git with token for push
+                $repoUrlWithToken = $repoUrl -replace "https://", "https://$GithubToken@"
+                & git push -u "$repoUrlWithToken" $branchName
+            } else {
+                & git push -u origin $branchName
+            }
+            
+            if ($LASTEXITCODE -ne 0) {
+                throw "Git push failed with exit code $LASTEXITCODE"
+            }
+            
+            # Create PR using GitHub API
+            if ($GithubToken) {
+                $prUrl = "https://api.github.com/repos/$ORG_NAME/$repoName/pulls"
+                $prBody = @{
+                    title = "Sync GitHub templates and standards"
+                    body = "This PR syncs the repository with organization-wide templates and standards:
 
 ## Changes included:
 * Add contributing guidelines
@@ -229,82 +221,41 @@ This PR syncs the repository with organization-wide templates and standards:
 
 This ensures consistency across all Anya-org repositories and aligns with our Bitcoin principles of decentralization, security, privacy, and compatibility.
 
-**Note:** Please review and adjust any repository-specific configurations as needed.
-"@
-                head = $branchName
-                base = $Repo.default_branch
-            } | ConvertTo-Json
-            
-            $headers = @{
-                Authorization = "token $GithubToken"
-                Accept = "application/vnd.github.v3+json"
+**Note:** Please review and adjust any repository-specific configurations as needed."
+                    head = $branchName
+                    base = $repo.default_branch
+                } | ConvertTo-Json
+                
+                $authHeaders = @{
+                    Authorization = "token $GithubToken"
+                    Accept = "application/vnd.github.v3+json"
+                }
+                
+                $prResponse = Invoke-RestMethod -Uri $prUrl -Headers $authHeaders -Method Post -Body $prBody -ContentType "application/json"
+                Write-Host "✓ Created PR: $($prResponse.html_url)" -ForegroundColor Green
+            } else {
+                Write-Host "⚠ GitHub token not provided. Please create PR manually." -ForegroundColor Yellow
             }
-            
-            try {
-                $prResponse = Invoke-RestMethod -Uri $prUrl -Headers $headers -Method Post -Body $prBody -ContentType "application/json"
-                Write-Success "Created PR: $($prResponse.html_url)"
-            } catch {
-                Write-Error "Failed to create PR: $_"
-            }
-        } else {
-            Write-Warning "GitHub token not provided. Please create PR manually."
-        }
-        
-        Pop-Location
-    }
-    
-    Write-Success "Repository sync complete for $repoName"
-    return $true
-}
-
-function Sync-AllRepositories {
-    Write-Title "Starting repository sync process"
-    
-    if ($DryRun) {
-        Write-Warning "Running in DRY-RUN mode. No changes will be made."
-    }
-    
-    $repos = Get-Repositories
-    $successCount = 0
-    $failCount = 0
-    
-    foreach ($repo in $repos) {
-        $success = Sync-Repository -Repo $repo
-        
-        if ($success) {
-            $successCount++
-        } else {
+        } catch {
+            Write-Host "✗ Failed to push changes or create PR: $_" -ForegroundColor Red
             $failCount++
+        } finally {
+            Pop-Location
         }
     }
     
-    Write-Title "Sync Summary"
-    Write-Host "Total repositories: $($repos.Count)" -ForegroundColor $COLOR_INFO
-    Write-Host "Successfully synced: $successCount" -ForegroundColor $COLOR_SUCCESS
-    Write-Host "Failed to sync: $failCount" -ForegroundColor $COLOR_ERROR
+    Write-Host "✓ Repository sync complete for $repoName" -ForegroundColor Green
+    $successCount++
 }
 
-# Main script execution
-Write-Title "Anya-org Repository Sync"
-Write-Host "This script will sync all repositories in the Anya-org organization with standardized templates."
+# Display summary
+Write-Host "`n==== Sync Summary ====" -ForegroundColor Cyan
+Write-Host "Total repositories: $($allRepos.Count)" -ForegroundColor Cyan
+Write-Host "Successfully synced: $successCount" -ForegroundColor Green
+Write-Host "Failed to sync: $failCount" -ForegroundColor Red
 
-if (-not (Test-Path $TEMPLATE_DIR)) {
-    Write-Error "Template directory not found at $TEMPLATE_DIR"
-    exit 1
-}
-
-# Prompt for GitHub token if not provided
-if (-not $GithubToken) {
-    $GithubToken = Read-Host "Enter GitHub token (leave blank to continue without token)"
-    if ([string]::IsNullOrWhiteSpace($GithubToken)) {
-        $GithubToken = $null
-    }
-}
-
-Sync-AllRepositories
-
-Write-Title "Sync Complete"
+Write-Host "`n==== Sync Complete ====" -ForegroundColor Cyan
 if ($DryRun) {
-    Write-Warning "This was a dry run. No changes were made."
+    Write-Host "⚠ This was a dry run. No changes were made." -ForegroundColor Yellow
     Write-Host "To perform actual changes, run the script without the -DryRun switch."
 }
