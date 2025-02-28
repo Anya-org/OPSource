@@ -33,7 +33,7 @@ if ($DryRun) {
 }
 
 # Fetch repositories
-Write-Host "→ Fetching repositories for $ORG_NAME..." -ForegroundColor Cyan
+Write-Host "-> Fetching repositories for $ORG_NAME..." -ForegroundColor Cyan
 
 $headers = @{}
 if ($GithubToken) {
@@ -80,7 +80,7 @@ foreach ($repo in $allRepos) {
     }
     
     # Clone the repository
-    Write-Host "→ Cloning $repoUrl to $tempDir..." -ForegroundColor Cyan
+    Write-Host "-> Cloning $repoUrl to $tempDir..." -ForegroundColor Cyan
     if (-not $DryRun) {
         try {
             & git clone $repoUrl $tempDir
@@ -96,7 +96,7 @@ foreach ($repo in $allRepos) {
     
     # Create a new branch
     $branchName = "sync/github-templates-$(Get-Date -Format 'yyyyMMdd')"
-    Write-Host "→ Creating branch: $branchName..." -ForegroundColor Cyan
+    Write-Host "-> Creating branch: $branchName..." -ForegroundColor Cyan
     if (-not $DryRun) {
         try {
             Push-Location $tempDir
@@ -113,7 +113,7 @@ foreach ($repo in $allRepos) {
     }
     
     # Create necessary directories
-    Write-Host "→ Creating directories..." -ForegroundColor Cyan
+    Write-Host "-> Creating directories..." -ForegroundColor Cyan
     if (-not $DryRun) {
         $githubDir = Join-Path $tempDir ".github"
         $issueTemplateDir = Join-Path $githubDir "ISSUE_TEMPLATE"
@@ -133,7 +133,7 @@ foreach ($repo in $allRepos) {
     }
     
     # Copy templates
-    Write-Host "→ Copying templates..." -ForegroundColor Cyan
+    Write-Host "-> Copying templates..." -ForegroundColor Cyan
     if (-not $DryRun) {
         # Root files
         Copy-Item -Path (Join-Path $TEMPLATE_DIR "CONTRIBUTING-template.md") -Destination (Join-Path $tempDir "CONTRIBUTING.md") -Force
@@ -149,7 +149,7 @@ foreach ($repo in $allRepos) {
         
         # Workflows for Rust projects
         if (Test-Path (Join-Path $tempDir "Cargo.toml")) {
-            Write-Host "→ Detected Rust project, adding Rust-specific workflows..." -ForegroundColor Cyan
+            Write-Host "-> Detected Rust project, adding Rust-specific workflows..." -ForegroundColor Cyan
             Copy-Item -Path (Join-Path $TEMPLATE_DIR "rust-ci-workflow.yml") -Destination (Join-Path $workflowsDir "rust.yml") -Force
             Copy-Item -Path (Join-Path $TEMPLATE_DIR "security-scan-workflow.yml") -Destination (Join-Path $workflowsDir "security-scan.yml") -Force
             Copy-Item -Path (Join-Path $PSScriptRoot "security-scan.ps1") -Destination (Join-Path $tempDir "security-scan.ps1") -Force
@@ -157,7 +157,7 @@ foreach ($repo in $allRepos) {
     }
     
     # Commit changes
-    Write-Host "→ Committing changes..." -ForegroundColor Cyan
+    Write-Host "-> Committing changes..." -ForegroundColor Cyan
     if (-not $DryRun) {
         try {
             & git add .
@@ -189,7 +189,7 @@ security, privacy, and compatibility."
     }
     
     # Push changes and create PR
-    Write-Host "→ Pushing changes and creating PR..." -ForegroundColor Cyan
+    Write-Host "-> Pushing changes and creating PR..." -ForegroundColor Cyan
     if (-not $DryRun) {
         try {
             if ($GithubToken) {
