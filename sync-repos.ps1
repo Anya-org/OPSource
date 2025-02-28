@@ -67,7 +67,7 @@ function Get-Repositories {
     $allRepos = @()
     
     do {
-        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100&page=$page"
+        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100" + "&page=$page"
         $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers -Method Get
         
         if ($response.Count -eq 0) {
@@ -173,12 +173,12 @@ function Sync-Repository {
         & git commit -m "chore: Sync GitHub templates and standards
 
 Apply organization-wide templates:
-- Add contributing guidelines
-- Add code of conduct
-- Add PR template
-- Add issue templates
-- Add workflows for CI/CD
-- Add security scan
+* Add contributing guidelines
+* Add code of conduct
+* Add PR template
+* Add issue templates
+* Add workflows for CI/CD
+* Add security scan
 
 This ensures consistency across all Anya-org repositories and
 aligns with our Bitcoin principles of decentralization,
@@ -216,12 +216,12 @@ security, privacy, and compatibility."
                 body = "This PR syncs the repository with organization-wide templates and standards:
 
 ## Changes included:
-- Add contributing guidelines
-- Add code of conduct
-- Add PR template
-- Add issue templates
-- Add workflows for CI/CD (where applicable)
-- Add security scan (for Rust projects)
+* Add contributing guidelines
+* Add code of conduct
+* Add PR template
+* Add issue templates
+* Add workflows for CI/CD (where applicable)
+* Add security scan (for Rust projects)
 
 This ensures consistency across all Anya-org repositories and aligns with our Bitcoin principles of decentralization, security, privacy, and compatibility.
 
