@@ -1,0 +1,65 @@
+name: Documentation Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force documentation update regardless of cycle'
+        required: false
+        default: 'false'
+        type: boolean
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test-and-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      
+      - name: Run tests
+        run: cargo test --verbose
+      
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v2
+        with:
+          powershell-version: '7.1'
+      
+      - name: Update documentation based on test cycle
+        run: |
+          pwsh -Command "./scripts/docs/cycle_docs_update.ps1 ${{ github.event.inputs.force_update == 'true' && '-Force' || '' }}"
+      
+      - name: Commit documentation changes
+        if: github.event_name == 'push' || github.event.inputs.force_update == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/
+          git commit -m "docs: Update documentation for test cycle [skip ci]" || echo "No changes to commit"
+      
+      - name: Push documentation changes
+        if: (github.event_name == 'push' || github.event.inputs.force_update == 'true') && github.ref == 'refs/heads/main'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
