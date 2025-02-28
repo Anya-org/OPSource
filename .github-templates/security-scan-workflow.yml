@@ -1,0 +1,62 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly at midnight on Sunday
+
+jobs:
+  security-scan:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+    
+    - name: Cache Rust dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-
+    
+    - name: Install cargo audit
+      run: cargo install cargo-audit
+    
+    - name: Install cargo outdated
+      run: cargo install cargo-outdated
+    
+    - name: Install cargo deny
+      run: cargo install cargo-deny@0.17.0
+    
+    - name: Run Security Scan
+      run: powershell -File ./security-scan.ps1
+    
+    - name: Check for vulnerable dependencies
+      run: |
+        # Check individual Cargo.toml files to handle workspace issues
+        Get-ChildItem -Path . -Include "Cargo.toml" -Recurse -Exclude "*\env\*" | 
+        ForEach-Object {
+          $dir = $_.DirectoryName
+          if ($dir -ne $pwd.Path) {
+            Write-Host "Checking dependencies in $dir"
+            Push-Location $dir
+            cargo audit || Write-Host "⚠️ Warning: Vulnerabilities found in $dir"
+            Pop-Location
+          }
+        }
