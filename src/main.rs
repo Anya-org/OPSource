@@ -1,5 +1,5 @@
 // Main entry point for OPSource
-// Allows testing of both Python and Rust Bitcoin implementations
+// Allows testing of the Rust Bitcoin implementation
 
 mod config;
 mod bitcoin;
@@ -16,7 +16,6 @@ fn main() {
     
     // Check for shadow mode
     let shadow_mode = env::var("SHADOW_MODE").map(|v| v.to_lowercase() == "true").unwrap_or(false);
-    let primary_impl = env::var("PRIMARY_IMPL").unwrap_or_else(|_| "rust".to_string());
     let log_file = env::var("LOG_FILE").ok();
     let log_all = env::var("LOG_ALL").map(|v| v.to_lowercase() == "true").unwrap_or(false);
     
@@ -24,180 +23,168 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() > 1 {
         match args[1].as_str() {
-            "python" => {
-                println!("Using Python implementation");
-                config.use_rust_bitcoin = false;
-            }
-            "rust" => {
-                println!("Using Rust implementation");
-                config.use_rust_bitcoin = true;
-            }
             "test" => {
-                println!("Running tests for both implementations");
-                return run_tests(shadow_mode, &primary_impl, log_file, log_all);
+                println!("Running tests...");
+                run_tests(shadow_mode, log_file, log_all);
+                return;
+            }
+            "demo" => {
+                println!("Running demo...");
+                let bitcoin = bitcoin::create_bitcoin_interface(
+                    bitcoin::interface::BitcoinImplementationType::Rust,
+                    &config
+                );
+                if let Err(e) = run_demo(bitcoin.as_ref()) {
+                    eprintln!("Error running demo: {:?}", e);
+                }
+                return;
+            }
+            "shadow" => {
+                println!("Running in shadow mode with logging...");
+                let log_file = log_file.or(Some("bitcoin_shadow.log".to_string()));
+                run_tests(true, log_file, log_all);
+                return;
             }
             _ => {
-                println!("Unknown command: {}", args[1]);
                 print_usage();
                 return;
             }
         }
     }
     
-    // Initialize Bitcoin module
-    bitcoin::init();
-    
-    // Create Bitcoin interface based on config
-    let bitcoin_interface = if shadow_mode {
-        let primary_implementation = match primary_impl.as_str() {
-            "python" => bitcoin::BitcoinImplementationType::Python,
-            _ => bitcoin::BitcoinImplementationType::Rust,
-        };
-        
-        match bitcoin::create_bitcoin_interface_shadow_mode(
-            &config,
-            primary_implementation,
-            log_file,
-            log_all,
-        ) {
-            Ok(interface) => interface,
-            Err(e) => {
-                println!("Failed to create shadow mode interface: {:?}", e);
-                return;
-            }
-        }
-    } else {
-        bitcoin::get_current_bitcoin_interface(&config)
-    };
-    
-    // Run simple demo
-    match run_demo(bitcoin_interface.as_ref()) {
-        Ok(_) => println!("\nDemo completed successfully"),
-        Err(e) => println!("\nDemo failed: {:?}", e),
+    // Default behavior: run demo with Rust implementation
+    println!("Running demo with Rust implementation...");
+    let bitcoin = bitcoin::create_bitcoin_interface(
+        bitcoin::interface::BitcoinImplementationType::Rust,
+        &config
+    );
+    if let Err(e) = run_demo(bitcoin.as_ref()) {
+        eprintln!("Error running demo: {:?}", e);
     }
 }
 
 fn print_usage() {
-    println!("\nUsage:");
-    println!("  opsource [command]");
-    println!("\nCommands:");
-    println!("  python  - Use Python implementation");
-    println!("  rust    - Use Rust implementation");
-    println!("  test    - Run tests for both implementations");
-    println!("\nEnvironment variables:");
-    println!("  USE_RUST_BITCOIN - Set to 'true' to use Rust implementation");
-    println!("  SHADOW_MODE      - Set to 'true' to run in shadow mode (comparing implementations)");
-    println!("  PRIMARY_IMPL     - Set to 'python' or 'rust' to select primary implementation in shadow mode");
-    println!("  LOG_FILE         - Path to log file for shadow mode comparison results");
-    println!("  LOG_ALL          - Set to 'true' to log all operations (not just mismatches)");
-    println!("  BITCOIN_NETWORK  - Bitcoin network ('mainnet', 'testnet', 'regtest')");
+    println!("Usage: opsource [COMMAND]");
+    println!("Commands:");
+    println!("  test   - Run tests on the Bitcoin implementation");
+    println!("  demo   - Run a demo of the Bitcoin implementation");
+    println!("  shadow - Run in shadow mode with logging");
+    println!("");
+    println!("Environment variables:");
+    println!("  SHADOW_MODE     - Set to 'true' to enable shadow mode");
+    println!("  LOG_FILE        - Path to log file for shadow mode");
+    println!("  LOG_ALL         - Set to 'true' to log all operations in shadow mode");
 }
 
-fn run_demo(bitcoin: &dyn bitcoin::BitcoinInterface) -> bitcoin::BitcoinResult<()> {
-    // Implementation type
-    println!("\nUsing {} Bitcoin implementation", 
-             match bitcoin.implementation_type() {
-                 bitcoin::BitcoinImplementationType::Python => "Python",
-                 bitcoin::BitcoinImplementationType::Rust => "Rust",
-             });
+fn run_demo(bitcoin: &dyn bitcoin::interface::BitcoinInterface) -> bitcoin::interface::BitcoinResult<()> {
+    println!("Bitcoin implementation: {:?}", bitcoin.implementation_type());
     
-    // 1. Get blockchain height
-    let height = bitcoin.get_block_height()?;
-    println!("\n1. Current blockchain height: {}", height);
+    // Generate a new address
+    println!("\nGenerating a new address...");
+    let address = bitcoin.generate_address(bitcoin::interface::AddressType::P2WPKH)?;
+    println!("Generated address: {}", address.address);
     
-    // 2. Generate address
-    let address = bitcoin.generate_address(bitcoin::AddressType::P2WPKH)?;
-    println!("\n2. Generated address: {}", address.address);
-    
-    // 3. Get balance
+    // Get current balance
+    println!("\nGetting current balance...");
     let balance = bitcoin.get_balance()?;
-    println!("\n3. Wallet balance: {} satoshis ({:.8} BTC)", 
-             balance, balance as f64 / 100_000_000.0);
+    println!("Current balance: {} satoshis", balance);
     
-    // 4. Create a transaction
-    println!("\n4. Creating a transaction...");
-    let recipient = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx".to_string();
-    let amount = 10000; // 0.0001 BTC
-    let fee_rate = 3; // 3 sat/vB
-    
-    let tx = bitcoin.create_transaction(vec![(recipient, amount)], fee_rate)?;
-    
-    println!("   - Transaction ID: {}", tx.txid);
-    println!("   - Fee: {} satoshis", tx.fee.unwrap_or(0));
-    println!("   - Size: {} bytes", tx.size);
-    println!("   - Number of inputs: {}", tx.inputs.len());
-    println!("   - Number of outputs: {}", tx.outputs.len());
-    
-    // 5. Estimate fee
+    // Estimate fee
+    println!("\nEstimating fee for 6 block confirmation...");
     let fee_rate = bitcoin.estimate_fee(6)?;
-    println!("\n5. Estimated fee rate for 6 blocks: {} sat/vB", fee_rate);
+    println!("Estimated fee rate: {} sat/vB", fee_rate);
+    
+    // Get current block height
+    println!("\nGetting current block height...");
+    let height = bitcoin.get_block_height()?;
+    println!("Current block height: {}", height);
+    
+    // Create a transaction (this will fail if there are no funds)
+    if balance > 0 {
+        println!("\nCreating a transaction...");
+        let recipient = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx".to_string();
+        let amount = 10000; // 0.0001 BTC
+        
+        match bitcoin.create_transaction(vec![(recipient.clone(), amount)], fee_rate) {
+            Ok(tx) => {
+                println!("Transaction created successfully:");
+                println!("  TXID: {}", tx.txid);
+                println!("  Size: {} bytes", tx.size);
+                println!("  Fee: {} satoshis", tx.fee.unwrap_or(0));
+            }
+            Err(e) => {
+                println!("Failed to create transaction: {:?}", e);
+            }
+        }
+    } else {
+        println!("\nSkipping transaction creation (no funds available)");
+    }
     
     Ok(())
 }
 
-fn run_tests(shadow_mode: bool, primary_impl: &str, log_file: Option<String>, log_all: bool) {
+fn run_tests(shadow_mode: bool, log_file: Option<String>, log_all: bool) {
+    let config = config::Config::default();
+    
     if shadow_mode {
-        println!("Running tests in shadow mode with {} as primary implementation", primary_impl);
-        println!("Logging to: {}", log_file.as_deref().unwrap_or("(none)"));
+        println!("Running tests in shadow mode...");
         
-        let config = config::Config::default();
-        let primary_implementation = match primary_impl {
-            "python" => bitcoin::BitcoinImplementationType::Python,
-            _ => bitcoin::BitcoinImplementationType::Rust,
-        };
-        
-        match bitcoin::create_bitcoin_interface_shadow_mode(
+        // Create shadow mode implementation
+        let result = bitcoin::create_bitcoin_interface_shadow_mode(
             &config,
-            primary_implementation,
+            bitcoin::interface::BitcoinImplementationType::Rust,
             log_file,
-            log_all,
-        ) {
-            Ok(interface) => {
-                match run_tests_with_interface(interface.as_ref()) {
-                    Ok(_) => println!("All tests passed!"),
-                    Err(e) => println!("Tests failed: {}", e),
+            log_all
+        );
+        
+        match result {
+            Ok(bitcoin) => {
+                if let Err(e) = run_tests_with_interface(bitcoin.as_ref()) {
+                    eprintln!("Error running tests: {:?}", e);
                 }
-            },
-            Err(e) => println!("Failed to create shadow mode interface: {:?}", e),
+            }
+            Err(e) => {
+                eprintln!("Failed to create shadow mode implementation: {:?}", e);
+            }
         }
     } else {
-        match bitcoin::test::run_tests() {
-            Ok(_) => println!("All tests passed!"),
-            Err(e) => println!("Tests failed: {}", e),
+        println!("Running tests with Rust implementation...");
+        
+        // Create Rust implementation
+        let bitcoin = bitcoin::create_bitcoin_interface(
+            bitcoin::interface::BitcoinImplementationType::Rust,
+            &config
+        );
+        
+        if let Err(e) = run_tests_with_interface(bitcoin.as_ref()) {
+            eprintln!("Error running tests: {:?}", e);
         }
     }
 }
 
-fn run_tests_with_interface(bitcoin: &dyn bitcoin::BitcoinInterface) -> bitcoin::BitcoinResult<()> {
-    // Test 1: Get block height
-    println!("\n1. Testing get_block_height()...");
-    let height = bitcoin.get_block_height()?;
-    println!("Block height: {}", height);
+fn run_tests_with_interface(bitcoin: &dyn bitcoin::interface::BitcoinInterface) -> bitcoin::interface::BitcoinResult<()> {
+    println!("Testing implementation: {:?}", bitcoin.implementation_type());
     
-    // Test 2: Generate address
-    println!("\n2. Testing generate_address()...");
-    let address = bitcoin.generate_address(bitcoin::AddressType::P2WPKH)?;
+    // Test address generation
+    println!("Testing address generation...");
+    let address = bitcoin.generate_address(bitcoin::interface::AddressType::P2WPKH)?;
     println!("Generated address: {}", address.address);
     
-    // Test 3: Get balance
-    println!("\n3. Testing get_balance()...");
-    let balance = bitcoin.get_balance()?;
-    println!("Balance: {} satoshis", balance);
-    
-    // Test 4: Create transaction
-    println!("\n4. Testing create_transaction()...");
-    let recipient = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx".to_string();
-    let amount = 10000; // 0.0001 BTC
-    let fee_rate = 3; // 3 sat/vB
-    
-    let tx = bitcoin.create_transaction(vec![(recipient, amount)], fee_rate)?;
-    println!("Transaction created with ID: {}", tx.txid);
-    
-    // Test 5: Estimate fee
-    println!("\n5. Testing estimate_fee()...");
+    // Test fee estimation
+    println!("Testing fee estimation...");
     let fee_rate = bitcoin.estimate_fee(6)?;
     println!("Estimated fee rate: {} sat/vB", fee_rate);
     
-    println!("\nAll tests completed successfully!");
+    // Test balance retrieval
+    println!("Testing balance retrieval...");
+    let balance = bitcoin.get_balance()?;
+    println!("Current balance: {} satoshis", balance);
+    
+    // Test block height retrieval
+    println!("Testing block height retrieval...");
+    let height = bitcoin.get_block_height()?;
+    println!("Current block height: {}", height);
+    
+    println!("All tests passed!");
     Ok(())
 } 

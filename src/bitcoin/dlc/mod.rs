@@ -1,6 +1,3 @@
-// Migrated from OPSource to anya-core
-// This file was automatically migrated as part of the Rust-only implementation
-// Original file: C:\Users\bmokoka\Downloads\OPSource\src\bitcoin\dlc\mod.rs
 // Discrete Log Contracts (DLCs) Module
 // Implements privacy-preserving DLCs using non-interactive oracle patterns
 // to maintain transaction indistinguishability as per Bitcoin Development Framework v2.5

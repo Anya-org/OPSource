@@ -1,5 +1,7 @@
-// Configuration module for OPSource
+// Configuration module for Anya Core
 // Provides configuration settings for various components
+
+use std::collections::HashMap;
 
 /// Main configuration struct for the application
 #[derive(Debug, Clone)]
@@ -34,16 +36,36 @@ pub struct Config {
     /// Lightning Network data directory
     pub lightning_data_dir: Option<String>,
     
+    /// Liquid RPC connection URL
+    pub liquid_rpc_url: Option<String>,
+    
+    /// Liquid RPC username
+    pub liquid_rpc_user: Option<String>,
+    
+    /// Liquid RPC password
+    pub liquid_rpc_pass: Option<String>,
+    
+    /// Liquid network to connect to (liquidv1, liquidtestnet, liquidregtest)
+    pub liquid_network: Option<String>,
+    
+    /// Path to Liquid data directory
+    pub liquid_data_dir: Option<String>,
+    
+    /// Web5 configuration
+    pub web5_config: crate::web5::Web5Config,
+    
     /// Feature flags for various components
-    pub features: std::collections::HashMap<String, bool>,
+    pub features: HashMap<String, bool>,
 }
 
 impl Default for Config {
     fn default() -> Self {
-        let mut features = std::collections::HashMap::new();
+        let mut features = HashMap::new();
         features.insert("taproot".to_string(), true);
         features.insert("lightning".to_string(), false);
         features.insert("dlc".to_string(), false);
+        features.insert("liquid".to_string(), false);
+        features.insert("web5".to_string(), true);
         
         Self {
             bitcoin_network: "testnet".to_string(),
@@ -56,6 +78,12 @@ impl Default for Config {
             lightning_node_pubkey: None,
             lightning_listen_addr: None,
             lightning_data_dir: None,
+            liquid_rpc_url: Some("http://localhost:7041".to_string()),
+            liquid_rpc_user: None,
+            liquid_rpc_pass: None,
+            liquid_network: Some("liquidtestnet".to_string()),
+            liquid_data_dir: None,
+            web5_config: crate::web5::Web5Config::default(),
             features,
         }
     }
@@ -108,6 +136,36 @@ impl Config {
             config.lightning_data_dir = Some(lightning_dir);
         }
         
+        // Liquid configuration
+        if let Ok(liquid_rpc_url) = std::env::var("LIQUID_RPC_URL") {
+            config.liquid_rpc_url = Some(liquid_rpc_url);
+        }
+        
+        if let Ok(liquid_rpc_user) = std::env::var("LIQUID_RPC_USER") {
+            config.liquid_rpc_user = Some(liquid_rpc_user);
+        }
+        
+        if let Ok(liquid_rpc_pass) = std::env::var("LIQUID_RPC_PASS") {
+            config.liquid_rpc_pass = Some(liquid_rpc_pass);
+        }
+        
+        if let Ok(liquid_network) = std::env::var("LIQUID_NETWORK") {
+            config.liquid_network = Some(liquid_network);
+        }
+        
+        if let Ok(liquid_data_dir) = std::env::var("LIQUID_DATA_DIR") {
+            config.liquid_data_dir = Some(liquid_data_dir);
+        }
+        
+        // Web5 configuration
+        if let Ok(did_method) = std::env::var("WEB5_DID_METHOD") {
+            config.web5_config.did_method = did_method;
+        }
+        
+        if let Ok(dwn_endpoint) = std::env::var("WEB5_DWN_ENDPOINT") {
+            config.web5_config.dwn_endpoints = vec![dwn_endpoint];
+        }
+        
         // Feature flags
         if let Ok(features_str) = std::env::var("ENABLED_FEATURES") {
             for feature in features_str.split(',') {
@@ -131,18 +189,19 @@ impl Config {
         self.features.insert(feature.to_string(), enabled);
     }
     
-    /// Get the Lightning implementation type
-    pub fn get_lightning_implementation_type(&self) -> crate::lightning::interface::LightningImplementationType {
-        match self.lightning_implementation.as_deref() {
-            Some("ldk") => crate::lightning::interface::LightningImplementationType::LDK,
-            Some("mock") => crate::lightning::interface::LightningImplementationType::Mock,
-            _ => crate::lightning::interface::LightningImplementationType::LDK,
-        }
-    }
-    
     /// Get the Bitcoin implementation type
     pub fn get_bitcoin_implementation_type(&self) -> crate::bitcoin::interface::BitcoinImplementationType {
         crate::bitcoin::interface::BitcoinImplementationType::Rust
+    }
+    
+    /// Check if Liquid is enabled
+    pub fn is_liquid_enabled(&self) -> bool {
+        self.is_feature_enabled("liquid")
+    }
+    
+    /// Check if Web5 is enabled
+    pub fn is_web5_enabled(&self) -> bool {
+        self.is_feature_enabled("web5")
     }
 }
 
@@ -151,5 +210,7 @@ pub fn test_config() -> Config {
     let mut config = Config::default();
     config.bitcoin_network = "regtest".to_string();
     config.bitcoin_rpc_url = "http://localhost:18443".to_string();
+    config.liquid_network = Some("liquidregtest".to_string());
+    config.liquid_rpc_url = Some("http://localhost:18884".to_string());
     config
 } 

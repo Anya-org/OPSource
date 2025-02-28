@@ -1,5 +1,5 @@
 // OPSource library
-// Provides Bitcoin functionality with dual Python and Rust implementations
+// Provides Bitcoin functionality with Rust implementation
 // and Lightning Network functionality using LDK
 
 // Re-export modules

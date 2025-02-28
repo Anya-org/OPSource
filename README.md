@@ -185,3 +185,79 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Bitcoin Dev Kit (BDK) team
 - python-bitcoinlib maintainers
 - Bitcoin Core developers
+
+# Bitcoin Code Migration
+
+This repository contains scripts and documentation for migrating the Bitcoin implementation from the OPSource research project to the anya-core production codebase.
+
+## Overview
+
+The OPSource project served as a research initiative for exploring Bitcoin integration possibilities, while anya-core is the production-ready implementation. This migration ensures that all Bitcoin functionality follows the Bitcoin Development Framework v2.5 requirements while maintaining a Rust-only implementation.
+
+## Files
+
+- `migrate_bitcoin_code.ps1`: PowerShell script to perform the migration
+- `test_bitcoin_migration.ps1`: PowerShell script to test the migration
+- `BITCOIN_MIGRATION.md`: Detailed documentation of the migration process and module structure
+- `README.md`: This file
+
+## Migration Process
+
+The migration process involves:
+
+1. Creating a backup of the existing anya-core Bitcoin module
+2. Copying and adapting files from OPSource to anya-core
+3. Restructuring the code to fit the anya-core architecture
+4. Updating import paths and adding appropriate headers
+
+## Usage
+
+### Prerequisites
+
+- PowerShell 7.0 or higher
+- Rust and Cargo (for compilation testing)
+
+### Running the Migration
+
+1. Ensure both OPSource and anya-core repositories are available
+2. Run the migration script:
+
+```powershell
+.\migrate_bitcoin_code.ps1
+```
+
+3. Test the migration:
+
+```powershell
+.\test_bitcoin_migration.ps1
+```
+
+## Module Structure
+
+The Bitcoin module in anya-core follows a hexagonal architecture as required by the Bitcoin Development Framework:
+
+```
+bitcoin/
+├── adapters/           # Adapters for external interfaces
+├── cross_chain/        # Cross-chain functionality
+├── dlc/                # Discrete Log Contracts implementation
+├── interface/          # Core interfaces
+├── layer2/             # Layer 2 solutions
+├── sidechains/         # Sidechain implementations
+├── taproot/            # Taproot asset implementation
+├── wallet/             # Wallet functionality
+└── mod.rs              # Main Bitcoin module
+```
+
+## Compliance
+
+The migrated code ensures compliance with:
+
+- BIP 341/342 (Taproot)
+- BIP 174 (PSBT)
+- Miniscript Support
+- Testnet Validation
+
+## Further Information
+
+For detailed information about the migration process and module structure, see [BITCOIN_MIGRATION.md](BITCOIN_MIGRATION.md).

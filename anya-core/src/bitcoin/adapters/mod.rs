@@ -1,3 +1,6 @@
+// Migrated from OPSource to anya-core
+// This file was automatically migrated as part of the Rust-only implementation
+// Original file: C:\Users\bmokoka\Downloads\OPSource\src\bitcoin\adapter.rs
 // src/bitcoin/adapter.rs
 //
 // This module provides adapter functionality for Bitcoin implementations
@@ -9,7 +12,7 @@ use crate::bitcoin::interface::{
     BitcoinAddress, AddressType, TransactionInput, TransactionOutput,
     BlockHeader, BitcoinImplementationType
 };
-use crate::config::Config;
+use crate::bitcoin::config::Config;
 use crate::bitcoin::rust::RustBitcoinImplementation;
 
 /// Bitcoin adapter for Bitcoin implementation

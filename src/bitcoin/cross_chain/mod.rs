@@ -1,12 +1,8 @@
-// Migrated from OPSource to anya-core
-// This file was automatically migrated as part of the Rust-only implementation
-// Original file: C:\Users\bmokoka\Downloads\OPSource\src\bitcoin\cross_chain\mod.rs
 // Cross-Chain Module
 // Provides functionality for Bitcoin cross-chain operations
 // as per Bitcoin Development Framework v2.5 requirements
 
 pub mod rsk;
-pub mod liquid;
 
 use bitcoin::{Block, BlockHeader, Transaction};
 use bitcoin::hashes::Hash;
@@ -40,7 +36,7 @@ pub struct CrossChainBridge {
     pub name: String,
     /// Source chain (e.g., "Bitcoin")
     pub source_chain: String,
-    /// Target chain (e.g., "RSK", "Ethereum", "Liquid")
+    /// Target chain (e.g., "RSK", "Ethereum")
     pub target_chain: String,
     /// Minimum amount for bridge transactions
     pub min_amount: u64,
@@ -182,28 +178,6 @@ pub fn execute_transaction(
             
             Ok(txid)
         },
-        "Liquid" => {
-            // Create a Liquid bridge transaction
-            let mut liquid_tx = liquid::create_liquid_bridge_transaction(
-                &transaction.source_sender,
-                &transaction.target_recipient,
-                transaction.amount,
-                liquid::LiquidAssetType::LBTC,
-            )?;
-            
-            // For this example, we're just setting the transaction ID
-            // In a real implementation, this would execute the transaction
-            let txid = format!("{}:{}", bridge.source_chain, transaction.timestamp);
-            
-            // Update the transaction
-            transaction.source_txid = txid.clone();
-            transaction.status = CrossChainStatus::PendingSource;
-            
-            // Add the transaction to the bridge
-            bridge.transactions.insert(txid.clone(), transaction.clone());
-            
-            Ok(txid)
-        },
         _ => Err("Unsupported target chain"),
     }
 }
@@ -223,42 +197,26 @@ pub fn update_transaction_status(
     // Update the confirmations
     transaction.source_confirmations = source_confirmations;
     
-    // Update the status based on confirmations and target chain
-    match bridge.target_chain.as_str() {
-        "RSK" => {
-            if source_confirmations == 0 {
-                transaction.status = CrossChainStatus::PendingSource;
-            } else if source_confirmations < bridge.required_confirmations {
-                transaction.status = CrossChainStatus::ConfirmedSource;
-            } else if transaction.target_txid.is_none() {
-                transaction.status = CrossChainStatus::ProcessingBridge;
-                
-                // In a real implementation, this would check the RSK chain
-                // For this example, we're simulating RSK processing
-                
-                // Simulate RSK transaction creation
+    // Update the status based on confirmations
+    if source_confirmations == 0 {
+        transaction.status = CrossChainStatus::PendingSource;
+    } else if source_confirmations < bridge.required_confirmations {
+        transaction.status = CrossChainStatus::ConfirmedSource;
+    } else if transaction.target_txid.is_none() {
+        transaction.status = CrossChainStatus::ProcessingBridge;
+        
+        // In a real implementation, this would check the target chain
+        // For this example, we're simulating target chain processing
+        
+        // Simulate target transaction creation
+        match bridge.target_chain.as_str() {
+            "RSK" => {
                 transaction.target_txid = Some(format!("0x{}", hex::encode(&[0u8; 32])));
                 transaction.status = CrossChainStatus::Completed;
+            },
+            _ => {
+                transaction.status = CrossChainStatus::Failed("Unsupported target chain".to_string());
             }
-        },
-        "Liquid" => {
-            if source_confirmations == 0 {
-                transaction.status = CrossChainStatus::PendingSource;
-            } else if source_confirmations < 102 { // Liquid requires 102 confirmations
-                transaction.status = CrossChainStatus::ConfirmedSource;
-            } else if transaction.target_txid.is_none() {
-                transaction.status = CrossChainStatus::ProcessingBridge;
-                
-                // In a real implementation, this would check the Liquid chain
-                // For this example, we're simulating Liquid processing
-                
-                // Simulate Liquid transaction creation
-                transaction.target_txid = Some(format!("0x{}", hex::encode(&[0u8; 32])));
-                transaction.status = CrossChainStatus::Completed;
-            }
-        },
-        _ => {
-            transaction.status = CrossChainStatus::Failed("Unsupported target chain".to_string());
         }
     }
     
@@ -311,31 +269,6 @@ mod tests {
         assert_eq!(transaction.target_recipient, "0x71C7656EC7ab88b098defB751B7401B5f6d8976F");
         assert_eq!(transaction.amount, 1000000);
         assert_eq!(transaction.fee, 250); // 0.25% of 1000000
-        assert_eq!(transaction.status, CrossChainStatus::PendingSource);
-    }
-    
-    #[test]
-    fn test_liquid_bridge() {
-        let mut bridge = create_bridge(
-            "Bitcoin-Liquid Bridge",
-            "Liquid",
-            100000, // 0.001 BTC
-            Some(1000000000), // 10 BTC
-            102, // Liquid requires 102 confirmations
-            10, // 0.1%
-        );
-        
-        let transaction = create_transaction(
-            &mut bridge,
-            "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
-            "VJL7xGMPkX4BoKYvCBNqYUNLd3UcguxHyA",
-            1000000, // 0.01 BTC
-        ).unwrap();
-        
-        assert_eq!(transaction.source_sender, "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4");
-        assert_eq!(transaction.target_recipient, "VJL7xGMPkX4BoKYvCBNqYUNLd3UcguxHyA");
-        assert_eq!(transaction.amount, 1000000);
-        assert_eq!(transaction.fee, 100); // 0.1% of 1000000
         assert_eq!(transaction.status, CrossChainStatus::PendingSource);
     }
 } 

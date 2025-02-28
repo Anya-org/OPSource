@@ -1,6 +1,3 @@
-// Migrated from OPSource to anya-core
-// This file was automatically migrated as part of the Rust-only implementation
-// Original file: C:\Users\bmokoka\Downloads\OPSource\src\bitcoin\taproot\mod.rs
 // Taproot Asset Module
 // Implements Taproot-enabled protocols for asset issuance and management
 // as per Bitcoin Development Framework v2.5 requirements
