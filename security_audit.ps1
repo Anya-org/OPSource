@@ -52,7 +52,7 @@ $secretPatterns = @(
 foreach ($pattern in $secretPatterns) {
     Write-Host "Searching for potential hardcoded secrets: $pattern" -ForegroundColor Yellow
     $results = Get-ChildItem -Path . -Recurse -Include *.py, *.rs, *.js, *.json | 
-               Select-String -Pattern "(?i)$pattern.*['\"""][a-zA-Z0-9_\-]{16,}['\"""]"
+               Select-String -Pattern "(?i)$pattern.*['`"][a-zA-Z0-9_\-]{16,}['`"]"
     if ($results) {
         Write-Host "POTENTIAL HARDCODED SECRET FOUND: $pattern" -ForegroundColor Red
         $results | ForEach-Object { Write-Host "  $_" -ForegroundColor Red }
