@@ -67,7 +67,8 @@ function Get-Repositories {
     $allRepos = @()
     
     do {
-        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100" + "&page=$page"
+        # Use backtick to escape ampersand
+        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100`&page=$page"
         $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers -Method Get
         
         if ($response.Count -eq 0) {
@@ -170,7 +171,8 @@ function Sync-Repository {
     Write-Step "Committing changes..."
     if (-not $DryRun) {
         & git add .
-        & git commit -m "chore: Sync GitHub templates and standards
+        & git commit -m @"
+chore: Sync GitHub templates and standards
 
 Apply organization-wide templates:
 * Add contributing guidelines
@@ -182,7 +184,8 @@ Apply organization-wide templates:
 
 This ensures consistency across all Anya-org repositories and
 aligns with our Bitcoin principles of decentralization,
-security, privacy, and compatibility."
+security, privacy, and compatibility.
+"@
         
         if ($LASTEXITCODE -ne 0) {
             Write-Warning "No changes to commit or commit failed"
@@ -213,7 +216,8 @@ security, privacy, and compatibility."
             $prUrl = "https://api.github.com/repos/$ORG_NAME/$repoName/pulls"
             $prBody = @{
                 title = "Sync GitHub templates and standards"
-                body = "This PR syncs the repository with organization-wide templates and standards:
+                body = @"
+This PR syncs the repository with organization-wide templates and standards:
 
 ## Changes included:
 * Add contributing guidelines
@@ -225,7 +229,8 @@ security, privacy, and compatibility."
 
 This ensures consistency across all Anya-org repositories and aligns with our Bitcoin principles of decentralization, security, privacy, and compatibility.
 
-**Note:** Please review and adjust any repository-specific configurations as needed."
+**Note:** Please review and adjust any repository-specific configurations as needed.
+"@
                 head = $branchName
                 base = $Repo.default_branch
             } | ConvertTo-Json
