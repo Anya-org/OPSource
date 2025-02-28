@@ -1,11 +1,11 @@
 # TODO Report
-Generated on: 2025-02-28 16:15:19
+Generated on: 2025-02-28 17:10:09
 
 ## Summary
-- Total TODOs: 41
+- Total TODOs: 42
 - Critical (P0): 0
 - High Priority (P1): 0
-- Normal Priority (P2): 41
+- Normal Priority (P2): 42
 - Low Priority (P3): 0
 
 ## Uncategorized
@@ -26,6 +26,8 @@ Generated on: 2025-02-28 16:15:19
   - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:165`
 - [ ] TODO(unassigned)[p2-normal]: Implement actual lookup against Handshake nodes
   - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:146`
+- [ ] TODO(unassigned)[p2-normal]: Implement actual memory and disk space checks
+  - File: `anya-core/src/bin/installer.rs:107`
 - [ ] TODO(unassigned)[p2-normal]: Implement actual registration logic
   - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:210`
 - [ ] TODO(unassigned)[p2-normal]: Implement actual renewal logic
@@ -102,6 +104,6 @@ Generated on: 2025-02-28 16:15:19
 - Assignees should be GitHub usernames or team names
 
 ## Recent Changes
-- 2025-02-28 16:15:19: Updated TODO report
-- 2025-02-28 16:15:19: Migrated archived TODOs
-- 2025-02-28 16:15:19: Standardized TODO format
+- 2025-02-28 17:10:09: Updated TODO report
+- 2025-02-28 17:10:09: Migrated archived TODOs
+- 2025-02-28 17:10:09: Standardized TODO format
