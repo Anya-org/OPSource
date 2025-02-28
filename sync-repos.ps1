@@ -14,7 +14,7 @@ Write-Host "`n==== Anya-org Repository Sync ====" -ForegroundColor Cyan
 Write-Host "This script will sync all repositories in the Anya-org organization with standardized templates."
 
 if (-not (Test-Path $TEMPLATE_DIR)) {
-    Write-Host "✗ Template directory not found at $TEMPLATE_DIR" -ForegroundColor Red
+    Write-Host "Error: Template directory not found at $TEMPLATE_DIR" -ForegroundColor Red
     exit 1
 }
 
@@ -29,7 +29,7 @@ if (-not $GithubToken) {
 Write-Host "`n==== Starting repository sync process ====" -ForegroundColor Cyan
 
 if ($DryRun) {
-    Write-Host "⚠ Running in DRY-RUN mode. No changes will be made." -ForegroundColor Yellow
+    Write-Host "WARNING: Running in DRY-RUN mode. No changes will be made." -ForegroundColor Yellow
 }
 
 # Fetch repositories
@@ -39,15 +39,15 @@ $headers = @{}
 if ($GithubToken) {
     $headers.Add("Authorization", "token $GithubToken")
 } else {
-    Write-Host "⚠ No GitHub token provided. Using public API with rate limits." -ForegroundColor Yellow
+    Write-Host "WARNING: No GitHub token provided. Using public API with rate limits." -ForegroundColor Yellow
 }
 
 $page = 1
 $allRepos = @()
     
 do {
+    $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100&page=$page"
     try {
-        $apiUrl = "https://api.github.com/orgs/$ORG_NAME/repos?per_page=100&page=$page"
         $response = Invoke-RestMethod -Uri $apiUrl -Headers $headers -Method Get
         
         if ($response.Count -eq 0) {
@@ -57,12 +57,12 @@ do {
         $allRepos += $response
         $page++
     } catch {
-        Write-Host "✗ Error fetching repositories: $_" -ForegroundColor Red
+        Write-Host "Error fetching repositories: $_" -ForegroundColor Red
         exit 1
     }
 } while ($response.Count -eq 100)
 
-Write-Host "✓ Found $($allRepos.Count) repositories" -ForegroundColor Green
+Write-Host "Found $($allRepos.Count) repositories" -ForegroundColor Green
 
 # Process each repository
 $successCount = 0
@@ -83,12 +83,14 @@ foreach ($repo in $allRepos) {
     Write-Host "-> Cloning $repoUrl to $tempDir..." -ForegroundColor Cyan
     if (-not $DryRun) {
         try {
-            & git clone $repoUrl $tempDir
+            git clone $repoUrl $tempDir
             if ($LASTEXITCODE -ne 0) {
-                throw "Git clone failed with exit code $LASTEXITCODE"
+                Write-Host "Error: Failed to clone repository" -ForegroundColor Red
+                $failCount++
+                continue
             }
         } catch {
-            Write-Host "✗ Failed to clone repository: $_" -ForegroundColor Red
+            Write-Host "Error: Failed to clone repository: $_" -ForegroundColor Red
             $failCount++
             continue
         }
@@ -100,12 +102,15 @@ foreach ($repo in $allRepos) {
     if (-not $DryRun) {
         try {
             Push-Location $tempDir
-            & git checkout -b $branchName
+            git checkout -b $branchName
             if ($LASTEXITCODE -ne 0) {
-                throw "Git checkout failed with exit code $LASTEXITCODE"
+                Write-Host "Error: Failed to create branch" -ForegroundColor Red
+                Pop-Location
+                $failCount++
+                continue
             }
         } catch {
-            Write-Host "✗ Failed to create branch: $_" -ForegroundColor Red
+            Write-Host "Error: Failed to create branch: $_" -ForegroundColor Red
             Pop-Location
             $failCount++
             continue
@@ -160,8 +165,9 @@ foreach ($repo in $allRepos) {
     Write-Host "-> Committing changes..." -ForegroundColor Cyan
     if (-not $DryRun) {
         try {
-            & git add .
-            & git commit -m "chore: Sync GitHub templates and standards
+            git -C $tempDir add .
+            
+            $commitMessage = "chore: Sync GitHub templates and standards
 
 Apply organization-wide templates:
 * Add contributing guidelines
@@ -175,13 +181,15 @@ This ensures consistency across all Anya-org repositories and
 aligns with our Bitcoin principles of decentralization,
 security, privacy, and compatibility."
 
+            git -C $tempDir commit -m $commitMessage
+            
             if ($LASTEXITCODE -ne 0) {
-                Write-Host "⚠ No changes to commit or commit failed" -ForegroundColor Yellow
+                Write-Host "WARNING: No changes to commit or commit failed" -ForegroundColor Yellow
                 Pop-Location
                 continue
             }
         } catch {
-            Write-Host "✗ Failed to commit changes: $_" -ForegroundColor Red
+            Write-Host "Error: Failed to commit changes: $_" -ForegroundColor Red
             Pop-Location
             $failCount++
             continue
@@ -195,21 +203,23 @@ security, privacy, and compatibility."
             if ($GithubToken) {
                 # Configure git with token for push
                 $repoUrlWithToken = $repoUrl -replace "https://", "https://$GithubToken@"
-                & git push -u "$repoUrlWithToken" $branchName
+                git -C $tempDir push -u "$repoUrlWithToken" $branchName
             } else {
-                & git push -u origin $branchName
+                git -C $tempDir push -u origin $branchName
             }
             
             if ($LASTEXITCODE -ne 0) {
-                throw "Git push failed with exit code $LASTEXITCODE"
+                Write-Host "Error: Failed to push changes" -ForegroundColor Red
+                Pop-Location
+                $failCount++
+                continue
             }
             
             # Create PR using GitHub API
             if ($GithubToken) {
                 $prUrl = "https://api.github.com/repos/$ORG_NAME/$repoName/pulls"
-                $prBody = @{
-                    title = "Sync GitHub templates and standards"
-                    body = "This PR syncs the repository with organization-wide templates and standards:
+                
+                $prBodyText = "This PR syncs the repository with organization-wide templates and standards:
 
 ## Changes included:
 * Add contributing guidelines
@@ -222,6 +232,10 @@ security, privacy, and compatibility."
 This ensures consistency across all Anya-org repositories and aligns with our Bitcoin principles of decentralization, security, privacy, and compatibility.
 
 **Note:** Please review and adjust any repository-specific configurations as needed."
+
+                $prBody = @{
+                    title = "Sync GitHub templates and standards"
+                    body = $prBodyText
                     head = $branchName
                     base = $repo.default_branch
                 } | ConvertTo-Json
@@ -232,19 +246,19 @@ This ensures consistency across all Anya-org repositories and aligns with our Bi
                 }
                 
                 $prResponse = Invoke-RestMethod -Uri $prUrl -Headers $authHeaders -Method Post -Body $prBody -ContentType "application/json"
-                Write-Host "✓ Created PR: $($prResponse.html_url)" -ForegroundColor Green
+                Write-Host "Created PR: $($prResponse.html_url)" -ForegroundColor Green
             } else {
-                Write-Host "⚠ GitHub token not provided. Please create PR manually." -ForegroundColor Yellow
+                Write-Host "WARNING: GitHub token not provided. Please create PR manually." -ForegroundColor Yellow
             }
         } catch {
-            Write-Host "✗ Failed to push changes or create PR: $_" -ForegroundColor Red
+            Write-Host "Error: Failed to push changes or create PR: $_" -ForegroundColor Red
             $failCount++
-        } finally {
-            Pop-Location
         }
+        
+        Pop-Location
     }
     
-    Write-Host "✓ Repository sync complete for $repoName" -ForegroundColor Green
+    Write-Host "Repository sync complete for $repoName" -ForegroundColor Green
     $successCount++
 }
 
@@ -256,6 +270,6 @@ Write-Host "Failed to sync: $failCount" -ForegroundColor Red
 
 Write-Host "`n==== Sync Complete ====" -ForegroundColor Cyan
 if ($DryRun) {
-    Write-Host "⚠ This was a dry run. No changes were made." -ForegroundColor Yellow
+    Write-Host "WARNING: This was a dry run. No changes were made." -ForegroundColor Yellow
     Write-Host "To perform actual changes, run the script without the -DryRun switch."
 }
