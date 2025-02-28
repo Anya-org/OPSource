@@ -1,21 +1,21 @@
 # Root level submodules - AI Core Components
 [submodule "anya-core/dash33"]
-    path = anya-core/dash33
-    url = https://github.com/botshelomokoka/dash33.git
+	path = anya-core/dash33
+	url = https://github.com/Anya-org/dash33.git
     branch = main
     update = merge
     fetchRecurseSubmodules = true
 
 [submodule "anya-core/enterprise"]
     path = anya-core/enterprise
-    url = https://github.com/botshelomokoka/anya-enterprise.git
+    url = https://github.com/Anya-org/anya-enterprise.git
     branch = main
     update = merge
     fetchRecurseSubmodules = true
 
 [submodule "anya-core/mobile"]
     path = anya-core/mobile
-    url = https://github.com/botshelomokoka/anya-mobile.git
+    url = https://github.com/Anya-org/anya-mobile.git
     branch = main
     update = merge
     fetchRecurseSubmodules = true
@@ -51,40 +51,49 @@
     url = https://github.com/discreetlogcontracts/dlcspecs.git
     branch = main
     update = merge
+
 [submodule "protocols/rgb"]
     path = protocols/rgb
     url = https://github.com/RGB-WG/rgb-core.git
     branch = v0.10
     update = merge
+
 [submodule "protocols/web5"]
     path = protocols/web5
     url = https://github.com/TBD54566975/web5-rs.git
     branch = main
     update = merge
-    url = https://github.com/TBD54566975/web5-rs.git
-    branch = main
 
 [submodule "interfaces/mobile"]
     path = interfaces/mobile
-    url = https://github.com/botshelomokoka/anya-mobile.git
+    url = https://github.com/Anya-org/anya-mobile.git
+
 [submodule "interfaces/enterprise"]
     path = interfaces/enterprise
-    url = https://github.com/botshelomokoka/anya-enterprise.git
+    url = https://github.com/Anya-org/anya-enterprise.git
     branch = main
     update = merge
+
 [submodule "ai-agents"]
     path = ai-agents
     url = https://github.com/geminik23/ai-agents.git
     branch = main
     update = merge
     # Removed exposed API key pattern
+
 [submodule "src/core/dao"]
     path = src/core/dao
-    url = https://github.com/botshelomokoka/anya-dao.git
+    url = https://github.com/Anya-org/anya-dao.git
     branch = main
     update = merge
+
 [submodule "src/core/shared"]
     path = src/core/shared
-    url = https://github.com/botshelomokoka/anya-shared.git
+    url = https://github.com/Anya-org/anya-shared.git
     branch = main
     update = merge
+
+[submodule "anya-core"]
+    path = anya-core
+    url = https://github.com/Anya-org/anya-core.git
+    branch = main
