@@ -3,10 +3,10 @@
 ## Potential Critical and High Vulnerabilities
 
 1. cryptography < 44.0.2 may have vulnerabilities - upgrade to 44.0.2 or latest version
-2. PyYAML < 6.0.2 has known security issues - currently using latest but check for newer versions
-3. tensorflow and related packages may have security issues - check for CVEs and update as needed
-4. requests/urllib3 package chain - keep updated to latest compatible versions
-5. pycryptodome may have security issues - ensure using latest version
+2. PyYAML < 6.0.3 has known security issues - upgrade to 6.0.3 or latest version
+3. tensorflow < 2.18.1 may have security issues - upgrade to 2.18.1 or latest version
+4. pycryptodome < 3.21.1 may have security issues - upgrade to 3.21.1 or latest version
+5. requests/urllib3 package chain - keep updated to latest compatible versions
 
 ## Security Best Practices
 
@@ -15,6 +15,7 @@
 3. Use virtual environments to isolate dependencies
 4. Scan code for security vulnerabilities regularly
 5. Monitor Dependabot alerts and merge security PRs quickly
+6. Run the security_audit.ps1 script regularly to check for potential issues
 
 ## How to Apply Security Fixes
 
@@ -22,7 +23,9 @@ For immediate security issues, run:
 
 ```bash
 pip install -U cryptography==44.0.2
-pip install -U pycryptodome==3.21.0
+pip install -U pycryptodome==3.21.1
+pip install -U PyYAML==6.0.3
+pip install -U tensorflow==2.18.1
 ```
 
 For a complete security update:

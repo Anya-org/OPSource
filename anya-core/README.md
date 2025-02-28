@@ -269,6 +269,7 @@ Anya Core follows a hexagonal architecture pattern, which separates the core bus
 - **Adapters**: Implementations of the ports that connect to external systems
 
 This architecture ensures:
+
 - Decentralized component management
 - Protocol-level interoperability
 - Real-time system observability

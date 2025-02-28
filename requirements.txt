@@ -38,9 +38,9 @@ idna==3.10
 # ML dependencies
 numpy==2.2.3
 scipy==1.15.2
-tensorflow==2.18.0
-tensorflow-io-gcs-filesystem==0.31.0
-tensorflow_intel==2.18.0; sys_platform == 'win32'
+tensorflow==2.18.1
+tensorflow-io-gcs-filesystem==0.32.0
+tensorflow_intel==2.18.1; sys_platform == 'win32'
 keras==3.8.0
 scikit-learn==1.6.1
 torch==2.6.0
@@ -71,13 +71,13 @@ multidict==6.1.0
 packaging==24.2
 platformdirs==4.3.6
 pycparser==2.22
-pycryptodome==3.21.0
+pycryptodome==3.21.1
 pydantic==2.10.6
 pydantic_core==2.29.0
 Pygments==2.19.1
 PyJWT==2.10.1
 python-dotenv==1.0.1
-PyYAML==6.0.2
+PyYAML==6.0.3
 pyunormalize==16.0.0
 regex==2024.11.6
 rich==13.9.4
