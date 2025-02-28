@@ -122,7 +122,7 @@ The Liquid module provides integration with the Liquid sidechain, including:
 
    ```bash
 # Clone the repository
-git clone https://github.com/your-org/anya-core.git
+git clone https://github.com/Anya-org/anya-core.git
    cd anya-core
 
 # Build the project
