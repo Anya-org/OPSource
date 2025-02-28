@@ -157,7 +157,27 @@ foreach ($repo in $allRepos) {
             Write-Host "-> Detected Rust project, adding Rust-specific workflows..." -ForegroundColor Cyan
             Copy-Item -Path (Join-Path $TEMPLATE_DIR "rust-ci-workflow.yml") -Destination (Join-Path $workflowsDir "rust.yml") -Force
             Copy-Item -Path (Join-Path $TEMPLATE_DIR "security-scan-workflow.yml") -Destination (Join-Path $workflowsDir "security-scan.yml") -Force
+            Copy-Item -Path (Join-Path $TEMPLATE_DIR "workflows\docs-update.yml") -Destination (Join-Path $workflowsDir "docs-update.yml") -Force
             Copy-Item -Path (Join-Path $PSScriptRoot "security-scan.ps1") -Destination (Join-Path $tempDir "security-scan.ps1") -Force
+            
+            # Ensure scripts/docs directory exists
+            $scriptsDocsDir = Join-Path -Path $tempDir -ChildPath "scripts\docs"
+            if (-not (Test-Path $scriptsDocsDir)) {
+                New-Item -ItemType Directory -Path $scriptsDocsDir -Force | Out-Null
+            }
+            
+            # Copy documentation scripts
+            if (Test-Path (Join-Path $PSScriptRoot "scripts\docs\cycle_docs_update.ps1")) {
+                Copy-Item -Path (Join-Path $PSScriptRoot "scripts\docs\cycle_docs_update.ps1") -Destination $scriptsDocsDir -Force
+                Write-Host "  Added documentation cycle update script" -ForegroundColor Green
+            }
+            
+            # Add .test-cycle file if it doesn't exist
+            $testCycleFile = Join-Path -Path $tempDir -ChildPath ".test-cycle"
+            if (-not (Test-Path $testCycleFile)) {
+                Set-Content -Path $testCycleFile -Value "1"
+                Write-Host "  Added .test-cycle file with initial value of 1" -ForegroundColor Green
+            }
         }
     }
     

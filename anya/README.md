@@ -521,4 +521,5 @@ Special thanks to our contributors and the following projects:
 - TBD
 - Block
 
-*Last updated: 2024-12-07*
+*Last updated: 2025-02-28*
+
