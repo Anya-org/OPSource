@@ -9,16 +9,57 @@ updates:
     directory: "/" # Location of the package manifests
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "security"
+    assignees:
+      - "bmokoka"
+    versioning-strategy: auto
+    allow:
+      - dependency-type: "all"
+    # Enable security updates for vulnerabilities
+    security-updates-only: false
+
+  - package-ecosystem: "pip" # Python dependencies in anya-core
+    directory: "/anya-core" # Location of the package manifests
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "security"
+    assignees:
+      - "bmokoka"
+    versioning-strategy: auto
+    allow:
+      - dependency-type: "all"
+    # Enable security updates for vulnerabilities
+    security-updates-only: false
 
   - package-ecosystem: "pip" # Python documentation dependencies
     directory: "/docs" # Location of the package manifests
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "documentation"
+      - "dependencies"
+    # Enable security updates for vulnerabilities
+    security-updates-only: false
 
   - package-ecosystem: "nuget" # PowerShell dependencies
     directory: "/" # Location of the package manifests
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "powershell"
+    # Enable security updates for vulnerabilities
+    security-updates-only: false
 
   - package-ecosystem: "docker" # Docker dependencies
     directory: "/" # Location of the package manifests
