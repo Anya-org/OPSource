@@ -10,7 +10,7 @@ use crate::config::Config;
 
 /// Run a test function against the Rust implementation
 pub fn run_test<F, R>(test_fn: F) -> Result<R, String>
-where
+    where
     F: Fn(&dyn BitcoinInterface) -> BitcoinResult<R>,
     R: std::fmt::Debug,
 {
@@ -55,8 +55,8 @@ pub fn test_implementation(impl_ref: &dyn BitcoinInterface) -> Result<(), String
     let height = impl_ref.get_block_height()
         .map_err(|e| format!("Failed to get block height: {:?}", e))?;
     println!("Current block height: {}", height);
-    
-    Ok(())
+            
+            Ok(())
 }
 
 /// Run a comprehensive test suite on the Bitcoin implementation
@@ -68,9 +68,9 @@ pub fn run_test_suite() -> Result<(), String> {
     config.bitcoin_network = "regtest".to_string();
     config.bitcoin_rpc_url = "http://localhost:18443".to_string();
     
-    println!("\nTesting Rust implementation:");
-    let rust_impl = create_bitcoin_interface(BitcoinImplementationType::Rust, &config);
-    test_implementation(rust_impl.as_ref()).map_err(|e| format!("Rust test error: {}", e))?;
+        println!("\nTesting Rust implementation:");
+        let rust_impl = create_bitcoin_interface(BitcoinImplementationType::Rust, &config);
+        test_implementation(rust_impl.as_ref()).map_err(|e| format!("Rust test error: {}", e))?;
     
     println!("\nAll tests passed!");
     Ok(())
@@ -94,7 +94,7 @@ mod tests {
         run_test(|impl_ref| {
             let fee_rate = impl_ref.estimate_fee(6)?;
             println!("Estimated fee rate: {} sat/vB", fee_rate);
-            Ok(())
+    Ok(())
         }).unwrap();
     }
 } 

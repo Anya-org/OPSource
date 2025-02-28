@@ -95,6 +95,6 @@ mod tests {
         assert_eq!(implementation.implementation_type(), BitcoinImplementationType::Rust);
         
         // Check the default implementation type
-        assert_eq!(adapter.implementation_type(), BitcoinImplementationType::Rust);
+            assert_eq!(adapter.implementation_type(), BitcoinImplementationType::Rust);
     }
 } 

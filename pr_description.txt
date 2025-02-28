@@ -1,0 +1,35 @@
+# Add Liquid and Web5 Support
+## Overview
+This PR adds comprehensive support for the Liquid sidechain and Web5 protocol to the Anya Core platform, along with updated documentation and configuration.
+## Changes
+
+### Liquid Implementation
+- Added Bitcoin-Liquid bridge with SPV proofs
+- Implemented asset issuance and management on Liquid
+- Added confidential transactions support
+- Integrated with the cross-chain module
+
+### Web5 Implementation
+- Added DID (Decentralized Identity) management
+- Implemented DWN (Decentralized Web Node) integration
+- Added protocol handling for Web5
+- Implemented credential management and secure messaging
+
+### Documentation Updates
+- Updated CHANGELOG.md with new features
+- Enhanced ROADMAP.md with future development plans
+- Added GITHUB.md with repository information
+- Updated NEW_FEATURES.md with Liquid and Web5 details
+- Updated TODO.md with new tasks
+
+### Configuration and Dependencies
+- Added Liquid configuration options
+- Added Web5 configuration options
+- Updated Cargo.toml with new dependencies
+- Enhanced feature flags system
+
+### Configuration and Dependencies
+- Added Liquid configuration options
+- Added Web5 configuration options
+- Updated Cargo.toml with new dependencies
+- Enhanced feature flags system

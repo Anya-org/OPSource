@@ -1,47 +1,48 @@
 name: TODO Automation
 
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop ]
-  schedule:
-    - cron: '0 0 * * *'  # Run daily at midnight
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**/*.md'
+      - '**/*.py'
+      - '**/*.rs'
+      - '**/*.js'
+      - '**/*.ts'
 
 jobs:
   todo-automation:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyyaml
-          
-      - name: Run TODO migration
-        run: python .github/scripts/todo_migration.py
-        
-      - name: Update Changelog
-        run: python .github/scripts/update_changelog.py
-        
-      - name: Update Roadmap
-        run: python .github/scripts/update_roadmap.py
-        
-      - name: Commit changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add docs/TODO.md docs/CHANGELOG.md docs/ROADMAP.md
-          git commit -m "chore: Update TODOs, changelog and roadmap [skip ci]" || echo "No changes to commit"
-          
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml markdown beautifulsoup4 GitPython
+    
+    - name: Run TODO migration
+      run: |
+        python .github/scripts/todo_migration.py
+      continue-on-error: true
+    
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Update TODOs and documentation [skip ci]"
+        file_pattern: "**/*.md"
+        branch: ${{ github.head_ref }}
+        commit_user_name: "GitHub Actions"
+        commit_user_email: "actions@github.com"
+        commit_author: "GitHub Actions <actions@github.com>"

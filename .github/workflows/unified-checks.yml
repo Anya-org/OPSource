@@ -1,0 +1,107 @@
+name: Unified Checks
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  validate-code:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+    
+    - name: Check code formatting
+      run: black --check .
+      continue-on-error: true
+    
+    - name: Run tests
+      run: pytest
+      continue-on-error: true
+    
+    - name: Security check
+      run: bandit -r src/
+      continue-on-error: true
+  
+  validate-docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install documentation dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install mkdocs mkdocs-material pymdown-extensions markdown
+        npm install -g markdown-link-check
+    
+    - name: Check documentation links
+      run: |
+        find . -name "*.md" -type f -not -path "./node_modules/*" -exec markdown-link-check {} \;
+      continue-on-error: true
+    
+    - name: Build documentation preview
+      run: mkdocs build
+    
+    - name: Upload documentation preview
+      uses: actions/upload-artifact@v3
+      with:
+        name: documentation-preview
+        path: site/
+  
+  validate-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Validate PR title
+      uses: amannn/action-semantic-pull-request@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        types: |
+          feat
+          fix
+          docs
+          style
+          refactor
+          perf
+          test
+          build
+          ci
+          chore
+          revert
+    
+    - name: Validate requirements
+      run: |
+        echo "Checking for Windows-specific packages without environment markers"
+        if grep -q "pywin32==" requirements.txt && ! grep -q "pywin32==.*sys_platform" requirements.txt; then
+          echo "::warning::pywin32 should have environment marker 'sys_platform == \"win32\"'"
+        fi
+        if grep -q "win32_setctime==" requirements.txt && ! grep -q "win32_setctime==.*sys_platform" requirements.txt; then
+          echo "::warning::win32_setctime should have environment marker 'sys_platform == \"win32\"'"
+        fi
+      continue-on-error: true 

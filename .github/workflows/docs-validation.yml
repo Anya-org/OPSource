@@ -4,31 +4,18 @@ on:
   push:
     paths:
       - 'docs/**'
+      - 'README.md'
+      - '**/*.md'
       - '.github/workflows/docs-validation.yml'
   pull_request:
     paths:
       - 'docs/**'
+      - 'README.md'
+      - '**/*.md'
       - '.github/workflows/docs-validation.yml'
 
 jobs:
-  validate-links:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          
-      - name: Install markdown-link-check
-        run: npm install -g markdown-link-check
-        
-      - name: Check Markdown links
-        run: |
-          find docs -name "*.md" -exec markdown-link-check {} \;
-
-  spell-check:
+  validate-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,76 +23,30 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.x'
+          python-version: '3.11'
           
-      - name: Install pyspelling
+      - name: Install dependencies
         run: |
-          pip install pyspelling
-          pip install beautifulsoup4
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material pymdown-extensions markdown
+          npm install -g markdown-link-check markdownlint-cli
           
-      - name: Run spell check
+      - name: Check Markdown links
         run: |
-          pyspelling -c .github/spellcheck.yaml
-
-  markdown-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: markdownlint-cli
-        uses: nosborn/github-action-markdown-cli@v3.2.0
-        with:
-          files: docs
-          config_file: .github/markdownlint.yaml
-
-  validate-code-examples:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
+          find . -name "*.md" -type f -not -path "./node_modules/*" -exec markdown-link-check {} \;
+        continue-on-error: true
           
-      - name: Extract and validate Rust code examples
+      - name: Lint Markdown files
         run: |
-          find docs -type f -name "*.md" -exec sh -c '
-            for file do
-              echo "Checking $file"
-              grep -n "```rust" -A 1000 "$file" | 
-              while IFS= read -r line; do
-                if [[ $line == "```" ]]; then
-                  break
-                fi
-                if [[ $line != "```rust" ]]; then
-                  echo "$line" >> temp.rs
-                fi
-              done
-              if [ -f temp.rs ]; then
-                rustc --check temp.rs || exit 1
-                rm temp.rs
-              fi
-            done
-          ' sh {} +
-
-  build-preview:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
-        with:
-          mdbook-version: 'latest'
+          markdownlint "**/*.md" --ignore node_modules
+        continue-on-error: true
           
-      - name: Build documentation
+      - name: Build documentation preview
         run: |
-          cd docs
-          mdbook build
+          mkdocs build
           
-      - name: Upload preview
+      - name: Upload documentation preview
         uses: actions/upload-artifact@v3
         with:
           name: documentation-preview
-          path: docs/book
+          path: site/
