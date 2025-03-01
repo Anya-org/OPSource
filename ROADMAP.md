@@ -2,7 +2,7 @@
 
 ## Current Phase (Q1 2025)
 
-### Alpha Release (v0.5.0) - February 28, 2025
+### Alpha Release (v0.5.0) - February 28, 2025 ✓ COMPLETED
 
 - [x] Project Infrastructure
   - [x] Directory structure
@@ -20,23 +20,30 @@
 ### Beta Release (v0.6.0) - March 15, 2025
 
 - [ ] Anya-Core Implementation
-  - [ ] Bitcoin Protocol Layer
-    - [ ] Transaction management
-    - [ ] UTXO handling
-    - [ ] Address management
+  - [x] Bitcoin Protocol Layer
+    - [x] Transaction management
+    - [x] UTXO handling
+    - [x] Address management
     - [ ] Lightning Network integration
   - [ ] Web5 Integration
-    - [ ] DID management
+    - [x] DID management (basic)
     - [ ] DWN integration
     - [ ] Schema repository
-  - [ ] Machine Learning Components
+  - [x] Machine Learning Components
+    - [x] Hardware detection
+    - [x] Auto-configuration
     - [ ] Model pipeline
     - [ ] Federated learning
     - [ ] Secure aggregation
-  - [ ] DAO Governance
-    - [ ] Voting system
-    - [ ] Proposal management
+  - [x] DAO Governance
+    - [x] Voting system
+    - [x] Proposal management
     - [ ] Time-locked execution
+  - [x] API Layer
+    - [x] Actix Web server setup
+    - [x] JWT authentication
+    - [x] WebSocket support
+    - [ ] API routes implementation
 
 ### RC Release (v0.9.0) - April 1, 2025
 
@@ -49,24 +56,50 @@
   - [ ] Integration test suite
   - [ ] Stress testing
 - [ ] Documentation
-  - [ ] Technical specifications
-  - [ ] Developer guides
-  - [ ] API reference
+  - [x] Installation guide
+  - [x] API reference (partial)
+  - [ ] Developer guide
+  - [ ] Tutorial series
 
-### Production Release (v1.0.0) - May 1, 2025
+## Future Phases
 
-- [ ] Mainnet Deployment
-  - [ ] Network configuration
-  - [ ] Security hardening
-  - [ ] Performance optimization
-- [ ] Production Infrastructure
-  - [ ] Monitoring setup
-  - [ ] Logging system
-  - [ ] Alert mechanisms
-- [ ] User Documentation
-  - [ ] User guides
-  - [ ] Tutorials
-  - [ ] Troubleshooting guides
+### v1.0 Release (Q2 2025)
+
+- [ ] Complete Web5 Integration
+  - [ ] Full DID resolution
+  - [ ] DWN protocol compliance
+  - [ ] Verifiable credentials
+- [ ] Complete RSK & RGB Integration
+  - [x] Initial RGB asset issuance 
+  - [ ] Full RGB asset transfer
+  - [x] RSK contract base
+  - [ ] Complete RSK contract deployment
+  - [ ] Stacks integration
+- [ ] Lightning Network Features
+  - [ ] Channel management
+  - [ ] Payment routing
+  - [ ] Invoice handling
+  - [ ] BOLT 12 offers
+- [ ] Enterprise Features
+  - [x] Authentication system
+  - [ ] Multi-signature workflow
+  - [ ] Compliance reporting
+  - [ ] Audit trails
+
+### v1.1 Release (Q3 2025)
+
+- [ ] Advanced ML Features
+  - [ ] Federated learning models
+  - [ ] Privacy-preserving data structures
+  - [ ] Secure model distribution
+- [ ] Mobile Integration
+  - [ ] React Native components
+  - [ ] Mobile wallet support
+  - [ ] Push notifications
+- [ ] Advanced DLC Support
+  - [ ] Oracle management
+  - [ ] Contract templates
+  - [ ] Settlement automation
 
 ## Future Roadmap (Q3-Q4 2025)
 

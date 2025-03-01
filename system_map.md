@@ -1,5 +1,7 @@
 # System Architecture Map
 
+Last Updated: March 1, 2025
+
 ## Project Structure
 
 ```text
@@ -12,8 +14,17 @@ OPSource/
 │   │   ├── dao/             # DAO implementation
 │   │   ├── enterprise/      # Enterprise features
 │   │   └── extensions/      # Extension system
+│   ├── lib/                 # Core library
+│   │   └── src/             # Rust library source
+│   │       ├── api/         # API implementation with Actix Web
+│   │       ├── core/        # Core functionality
+│   │       └── automation/  # Automation tools
 │   ├── dependencies/        # Core dependencies
 │   │   ├── anya-bitcoin/    # Bitcoin-specific implementation
+│   │   │   └── src/         # Bitcoin source
+│   │   │       ├── rgb/     # RGB protocol implementation
+│   │   │       ├── rsk/     # RSK integration
+│   │   │       └── stacks/  # Stacks integration
 │   │   └── anya-extensions/ # Extension framework
 │   ├── tests/               # Test suite
 │   └── docs/                # Documentation
@@ -48,6 +59,7 @@ OPSource/
   - LDK (v0.0.116): Lightning Network protocol implementation
   - RGB Core (v0.10): Asset issuance on Bitcoin
   - Taproot (v0.1.0): Advanced contract functionality
+  - rust-dlc (v0.4.0): Discreet Log Contracts implementation
 
 ### 2. Web5 Integration Layer
 
@@ -59,7 +71,21 @@ OPSource/
   - Identity-centric storage
   - Secure data encryption
 
-### 3. ML/AI System
+### 3. API Layer
+
+- **Purpose**: Web API and real-time communication
+- **Key Features**:
+  - RESTful API endpoints
+  - WebSocket support for real-time updates
+  - JWT-based authentication
+  - Cross-origin resource sharing
+- **Main Libraries**:
+  - actix-web (v4.3.1): Web framework
+  - jsonwebtoken (v8.3.0): JWT authentication
+  - actix-cors (v0.6.4): CORS support
+  - actix-web-actors (v4.2.0): WebSocket support
+
+### 4. ML/AI System
 
 - **Purpose**: Advanced analytics and prediction
 - **Key Features**:
@@ -69,7 +95,7 @@ OPSource/
   - Pipeline optimization
   - Prediction models
 
-### 4. Enterprise Features
+### 5. Enterprise Features
 
 - **Purpose**: Business operations and integration
 - **Key Features**:
@@ -79,7 +105,7 @@ OPSource/
   - Revenue system
   - Business analytics
 
-### 5. Mobile Application
+### 6. Mobile Application
 
 - **Purpose**: Cross-platform mobile interface
 - **Key Features**:

@@ -1,5 +1,7 @@
 # OPSource Project Index
 
+Last Updated: March 2, 2025
+
 ## Core Platform Components
 - [Anya Core](./anya/INDEX.md) - Core Platform Components
   - [Dependencies](./anya/dependencies/INDEX.md) - Core Dependencies & Libraries
@@ -14,10 +16,20 @@
   - [Network](./anya-core/dependencies/anya-bitcoin/src/net/README.md) - P2P Networking
   - [Script](./anya-core/dependencies/anya-bitcoin/src/script/README.md) - Script Execution
   - [DLC](./anya-core/dependencies/anya-bitcoin/src/dlc/README.md) - Discreet Log Contracts
+  - [RGB](./anya-core/dependencies/anya-bitcoin/src/rgb/README.md) - RGB Protocol Implementation
+  - [RSK](./anya-core/dependencies/anya-bitcoin/src/rsk/README.md) - RSK Smart Contract Integration
+  - [Stacks](./anya-core/dependencies/anya-bitcoin/src/stacks/README.md) - Stacks Blockchain Integration
 - [Rust Bitcoin Libraries](./rust-bitcoin-libraries.md) - Rust Bitcoin Library Documentation
   - [BDK Example](./bdk-wallet-example.rs) - Bitcoin Development Kit Example
   - [Rust-Bitcoin Example](./rust-bitcoin-example.rs) - Basic Rust-Bitcoin Example
   - [Cargo Configuration](./Cargo.toml.example) - Example Cargo Configuration
+
+## API Layer
+- [API Documentation](./anya-core/lib/src/api/README.md) - API Layer Documentation
+  - [Authentication](./anya-core/lib/src/api/auth.rs) - JWT Authentication Implementation
+  - [WebSocket](./anya-core/lib/src/api/websocket.rs) - WebSocket Implementation
+  - [Routes](./anya-core/lib/src/api/routes.rs) - API Routes Implementation
+  - [Server Configuration](./anya-core/lib/src/api/mod.rs) - Actix Web Server Configuration
 
 ## Advanced Analytics
 - [Real-time Processing](./dash33/analytics/realtime/README.md)
@@ -65,6 +77,3 @@
 - [Python to Rust Migration](./docs/migration/python_to_rust.md) - Guide for migrating from Python-bitcoinlib to Rust
 - [Integration Patterns](./docs/integration/bitcoin_integration.md) - Patterns for Bitcoin integration
 - [Testing Guide](./docs/testing/bitcoin_testing.md) - Bitcoin-specific testing guidelines
-
-*Last updated: 2025-03-01*
-
