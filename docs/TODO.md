@@ -1,5 +1,5 @@
 # TODO Report
-Generated on: 2025-02-28 19:28:52
+Generated on: 2025-03-01 14:24:57
 
 ## Summary
 - Total TODOs: 60
@@ -71,11 +71,11 @@ Generated on: 2025-02-28 19:28:52
 - [ ] TODO(unassigned)[p2-normal]: Implement advanced aggregation algorithms
   - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:200`
 - [ ] TODO(unassigned)[p2-normal]: Implement credential revocation
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:316`
+  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:500`
 - [ ] TODO(unassigned)[p2-normal]: Implement differential privacy techniques
   - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:198`
 - [ ] TODO(unassigned)[p2-normal]: Implement more sophisticated backup
-  - File: `anya-core/dependencies/anya-bitcoin/src/wallet.rs:252`
+  - File: `anya-core/dependencies/anya-bitcoin/src/wallet.rs:564`
 - [ ] TODO(unassigned)[p2-normal]: Implement natural language processing capabilities
   - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:202`
 - [ ] TODO(unassigned)[p2-normal]: Implement network resolution
@@ -91,17 +91,17 @@ Generated on: 2025-02-28 19:28:52
 - [ ] TODO(unassigned)[p2-normal]: Implement proper signature verification
   - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:325`
 - [ ] TODO(unassigned)[p2-normal]: Implement proper signing
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:199`
+  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:247`
 - [ ] TODO(unassigned)[p2-normal]: Implement proper signing
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:273`
+  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:457`
 - [ ] TODO(unassigned)[p2-normal]: Implement proper transaction history
   - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:244`
 - [ ] TODO(unassigned)[p2-normal]: Implement proper verification
   - File: `anya-core/dependencies/anya-bitcoin/src/web5/dwn.rs:321`
 - [ ] TODO(unassigned)[p2-normal]: Implement proper verification
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:234`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper verification
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:301`
+  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:485`
+- [ ] TODO(unassigned)[p2-normal]: Implement proper verification of the signature
+  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:356`
 - [ ] TODO(unassigned)[p2-normal]: Implement secure aggregation using the SPDZ protocol
   - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:199`
 - [ ] TODO(unassigned)[p2-normal]: Include short and useful examples for package users. Add longer examples
@@ -140,6 +140,6 @@ Generated on: 2025-02-28 19:28:52
 - Assignees should be GitHub usernames or team names
 
 ## Recent Changes
-- 2025-02-28 19:28:52: Updated TODO report
-- 2025-02-28 19:28:52: Migrated archived TODOs
-- 2025-02-28 19:28:52: Standardized TODO format
+- 2025-03-01 14:24:57: Updated TODO report
+- 2025-03-01 14:24:57: Migrated archived TODOs
+- 2025-03-01 14:24:57: Standardized TODO format
