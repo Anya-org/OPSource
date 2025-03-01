@@ -7,7 +7,7 @@ members = [
     "anya-core/dependencies/anya-extensions"
 ]
 resolver = "2"
-version = "0.1.0"
+version = "0.2.1"
 
 [workspace.dependencies]
 tokio = { version = "1.41.1", features = ["full"] }
@@ -62,11 +62,11 @@ test-log = "0.2.14"
 authors = ["OPSource Team"]
 description = "Bitcoin operations with Rust implementation"
 edition = "2021"
-version = "0.1.0"
+version = "0.2.1"
 
 [package]
 name = "opsource"
-version = "0.1.0"
+version = "0.2.1"
 edition = "2021"
 authors = ["OPSource Team"]
 description = "Bitcoin operations with Rust implementation"
@@ -74,13 +74,28 @@ description = "Bitcoin operations with Rust implementation"
 [dependencies]
 # Error handling
 thiserror = "1.0"
+anyhow = "1.0"
 
 # Utilities
 md5 = "0.7.0"
 rand = "0.8.5"
+chrono = { version = "0.4.31", features = ["serde"] }
+serde = { version = "1.0.215", features = ["derive"] }
+serde_json = "1.0.133"
+log = "0.4"
+env_logger = "0.10"
+clap = { version = "4.0", features = ["derive"] }
+tokio = { version = "1.41.1", features = ["full"] }
+futures = "0.3"
+tempfile = "3.8.1"
+dirs = "5.0.1"
+sys-info = "0.9"
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+lazy_static = "1.4"
+rayon = "1.7"
 
 # Bitcoin dependencies
-bitcoin = { version = "0.32.1", features = ["rand", "serde"] }
+bitcoin = { version = "0.32.1", features = ["rand", "serde", "taproot"] }
 bdk = "1.0.0"
 bitcoincore-rpc = "0.17.0"
 miniscript = "10.0.0"
@@ -93,14 +108,24 @@ lightning-block-sync = { version = "0.0.116", optional = true }
 lightning-invoice = { version = "0.26.0", optional = true }
 lightning-net-tokio = { version = "0.0.116", optional = true }
 
+# Optional dependencies
+rust-dlc = { git = "https://github.com/p2pderivatives/rust-dlc", tag = "v0.4.0", optional = true }
+rgb-core = { git = "https://github.com/RGB-WG/rgb-core", tag = "v0.10.8", optional = true }
+rgb-std = { git = "https://github.com/RGB-WG/rgb-std", tag = "v0.10.5", optional = true }
+web5 = { git = "https://github.com/TBD54566975/web5-rs", package = "web5", tag = "v4.0.0", optional = true }
+
 [features]
 default = ["rust-bitcoin"]
 rust-bitcoin = []
 ldk = ["lightning", "lightning-persister", "lightning-background-processor", "lightning-block-sync", "lightning-invoice", "lightning-net-tokio"]
 mock-lightning = []
-
-# Enable both implementations for testing
-full = ["rust-bitcoin", "ldk", "mock-lightning"]
+dlc = ["rust-dlc"]
+rgb = ["rgb-core", "rgb-std"]
+web5-support = ["web5"]
+taproot = []
+opsource = ["rust-bitcoin", "dlc", "rgb", "web5-support", "taproot"]
+anya = ["rust-bitcoin", "ldk"]
+full = ["opsource", "anya", "mock-lightning"]
 
 [lib]
 name = "opsource"
@@ -109,6 +134,10 @@ path = "src/lib.rs"
 [[bin]]
 name = "opsource"
 path = "src/main.rs"
+
+[[bin]]
+name = "installer"
+path = "src/bin/installer.rs"
 
 [profile.release]
 codegen-units = 1

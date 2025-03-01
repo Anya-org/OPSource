@@ -2,8 +2,8 @@
 
 A comprehensive Bitcoin platform built on Rust, focusing on decentralization, security, and privacy while adhering to core Bitcoin principles.
 
-**Current Version**: 0.2.0  
-**Last Updated**: February 28, 2025
+**Current Version**: 0.2.1  
+**Last Updated**: March 1, 2025
 
 ## Core Principles
 
@@ -59,6 +59,14 @@ anya-core/
 - **RSK Integration**: Bitcoin-secured EVM-compatible smart contracts 
 - **Stacks Integration**: Smart contracts secured by Bitcoin consensus
 
+### DAO and Governance
+
+- **Integrated DAO Platform**: Create and manage decentralized autonomous organizations
+- **Multi-signature Governance**: Configure customizable voting thresholds and periods
+- **Proposal System**: Generate, track, and vote on governance proposals
+- **Metrics Dashboard**: Monitor DAO health and participation metrics
+- **Extensible Rules Engine**: Create custom governance rules and constraints
+
 ### Security and Privacy
 
 - **Memory Safety**: Rust's ownership model eliminates entire classes of vulnerabilities
@@ -73,6 +81,13 @@ anya-core/
 - **Decentralized Web Nodes (DWNs)**: Personal data storage and management
 - **Verifiable Credentials**: Privacy-preserving attestations
 - **Handshake Support**: Decentralized DNS alternatives
+
+### Machine Learning Features
+
+- **Auto-configuration**: Optimizes ML settings based on hardware capabilities
+- **Hardware Detection**: Identifies CPU, memory, and GPU resources
+- **Framework Support**: TensorFlow and PyTorch integration
+- **Performance Optimization**: Automatic batch size and parallelism configuration
 
 ## Getting Started
 
@@ -89,11 +104,57 @@ anya-core/
 git clone https://github.com/Anya-org/OPSource.git
 cd OPSource
 
+# Simple installation with default options
+cargo run --bin installer -- install --yes
+
+# Advanced installation with specific components
+cargo run --bin installer -- install --opsource --setup-wallet --setup-dao --with-ml --ml-framework tensorflow --auto-config-ml
+
 # Build the project
 cargo build --release
 
 # Run tests
 cargo test --all-features
+```
+
+#### Installation Options
+
+The unified installer supports various installation options:
+
+```
+USAGE:
+    installer install [OPTIONS]
+
+OPTIONS:
+    --core-only                  Install core components only
+    -y, --yes                    Skip confirmation prompts
+    --with-python                Install Python dependencies
+    --component <COMPONENT>      Specific component (bitcoin, web5, rgb, dlc, taproot, all)
+    --opsource                   Install OPSource components
+    --anya                       Install anya-core components
+    --anya-modules <MODULES>     Anya modules (comma-separated: bitcoin,lightning,web5,extensions)
+    --auto-config-anya           Auto-configure anya-core after installation
+    --with-ml                    Install machine learning components
+    --ml-framework <FRAMEWORK>   ML framework (tensorflow, pytorch, both)
+    --auto-config-ml             Auto-configure ML based on machine specs
+    --max-memory <MEMORY>        Maximum memory to use during installation (in MB)
+    --setup-wallet               Setup wallet during installation
+    --setup-dao                  Setup DAO during installation
+```
+
+### Testing
+
+```bash
+# Run all tests
+cargo run --bin installer -- test
+
+# Test specific components
+cargo run --bin installer -- test --component wallet
+cargo run --bin installer -- test --component dao
+cargo run --bin installer -- test --component ml
+
+# Generate JSON test report
+cargo run --bin installer -- test --json
 ```
 
 ### Quick Start
@@ -163,6 +224,40 @@ let txid = dlc::execute_contract(
 
 // Check contract status
 let status = dlc::get_contract_status(wallet, &contract).await?;
+```
+
+### DAO Creation and Management
+
+```rust
+// Create a new DAO configuration
+let dao_config = dao::DAOConfig {
+    name: "OPSource Governance DAO",
+    governance_type: "multisig",
+    voting_threshold: 0.66, // 66% required for proposal approval
+    voting_period_days: 3,
+    members: vec!["member1".to_string(), "member2".to_string()],
+};
+
+// Initialize the DAO
+let dao = dao::create_dao(wallet, dao_config).await?;
+
+// Create a new proposal
+let proposal = dao::create_proposal(
+    dao,
+    "Increase Voting Threshold",
+    "Proposal to increase voting threshold to 75%",
+    json!({
+        "action": "update_parameter",
+        "parameter": "voting_threshold",
+        "value": 0.75
+    }),
+).await?;
+
+// Cast a vote
+dao::vote(dao, &proposal.id, "member1", dao::Vote::Yes).await?;
+
+// Check proposal status
+let status = dao::get_proposal_status(dao, &proposal.id).await?;
 ```
 
 ### RGB Asset Issuance

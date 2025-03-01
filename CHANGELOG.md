@@ -17,6 +17,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Package distribution system with SHA256 checksum verification
 - Cross-platform packaging support (Windows PowerShell and Unix bash)
 
+## [0.2.1] - 2025-03-01
+
+### Added
+- Integrated wallet and DAO functionality into the installer
+- Added WalletManager for Bitcoin wallet configuration and management
+- Created DAO governance setup with customizable voting thresholds
+- Implemented DAO proposal templates and voting mechanism
+- Enhanced MLManager with hardware detection for optimal configuration
+- Added comprehensive testing for wallet, DAO, and ML components
+- Created installation options for wallet and DAO setup (--setup-wallet, --setup-dao)
+- Added JSON output option for test results
+- Updated documentation to reflect new functionality
+
+### Changed
+- Refactored the installer to support component-specific testing
+- Improved configuration management for Bitcoin network settings
+- Enhanced Taproot and DLC integration with the wallet system
+- Updated ML auto-configuration to better detect system capabilities
+- Unified test framework across all components
+
+### Fixed
+- Corrected path handling for wallet configuration files
+- Fixed DAO voting threshold validation
+- Improved error handling during wallet and DAO setup
+
+## [0.2.0] - 2025-03-01
+
+### Added
+- Enhanced BDK wallet functionality in Rust implementation
+- Electrum server connection for blockchain data in Rust
+- Descriptor-based wallet with BIP39 mnemonic generation
+- Comprehensive error handling and recovery
+- Support for transaction broadcasting via Electrum
+
+### Changed
+- Made Rust the default Bitcoin implementation
+- Updated feature flags to prefer rust-bitcoin by default
+- Improved transaction creation with proper coin selection
+- Enhanced address generation with BDK's descriptor wallets
+- Updated documentation to reflect the completed migration
+
+### Fixed
+- Error handling for failed network connections
+- Transaction fee calculation for varying transaction sizes
+- Balance reporting after wallet synchronization
+
 ## [0.1.0] - 2025-02-25
 
 ### Added
@@ -75,37 +121,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Rust toolchain to 2021 edition
 - Enhanced Bitcoin transaction handling
 - Improved testing framework
-
-## [0.2.0] - 2025-03-01
-
-### Added
-- Enhanced BDK wallet functionality in Rust implementation
-- Electrum server connection for blockchain data in Rust
-- Descriptor-based wallet with BIP39 mnemonic generation
-- Comprehensive error handling and recovery
-- Support for transaction broadcasting via Electrum
-
-### Changed
-- Made Rust the default Bitcoin implementation
-- Updated feature flags to prefer rust-bitcoin by default
-- Improved transaction creation with proper coin selection
-- Enhanced address generation with BDK's descriptor wallets
-- Updated documentation to reflect the completed migration
-
-### Fixed
-- Error handling for failed network connections
-- Transaction fee calculation for varying transaction sizes
-- Balance reporting after wallet synchronization
-
-## [0.1.0] - 2025-02-15
-
-### Added
-- Initial release of dual Bitcoin implementation architecture
-- Common interface definition for Bitcoin operations
-- Python implementation using python-bitcoinlib
-- Basic Rust implementation using rust-bitcoin and BDK
-- Configuration system with environment variable support
-- Test framework to validate identical behavior across implementations
-- Documentation of migration strategy from Python to Rust
 
 *Last updated: 2025-03-05*
