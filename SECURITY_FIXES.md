@@ -172,6 +172,26 @@ As part of our migration to Rust, we've implemented the following security enhan
    - Implemented secure oracle attestation verification
    - Added protection against replay attacks in DLCs
 
+## Web5 Security Enhancements
+
+1. **Decentralized Identity (DID) Security**:
+   - Implemented secure DID creation and resolution
+   - Added proper signature verification for DID documents
+   - Implemented secure key management for DIDs
+   - Added secure credential issuance and verification
+
+2. **Decentralized Web Node (DWN) Security**:
+   - Implemented secure message encryption and authentication
+   - Added proper access control for DWN resources
+   - Implemented secure data synchronization
+   - Added protection against unauthorized access
+
+3. **Handshake Security**:
+   - Implemented secure name resolution
+   - Added proper verification of Handshake name proofs
+   - Implemented secure name updates and transfers
+   - Added protection against name squatting attacks
+
 ## Future Security Roadmap
 
 1. **Continuous Dependency Monitoring**:

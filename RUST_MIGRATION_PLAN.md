@@ -107,11 +107,6 @@ This document outlines our strategy for migrating OPSource from Python to Rust, 
 | Neural Networks | tensorflow, pytorch | tract | In Progress |
 | Auto-config | - | Custom implementation | Completed |
 
-### Interoperability Tools
-
-- PyO3 for Rust-to-Python bindings
-- UniFFI for generating language bindings from Rust
-
 ## Security Considerations
 
 1. **Dependency Management**:
@@ -179,3 +174,8 @@ Overall migration progress: **45%**
 - [TBD54566975 GitHub](https://github.com/TBD54566975)
 - [W3C Web5 Specification](https://www.w3.org/TR/web5/)
 - [Decentralized Identity Foundation](https://identity.foundation/)
+
+## Interoperability Tools
+
+- PyO3 for Rust-to-Python bindings
+- UniFFI for generating language bindings from Rust

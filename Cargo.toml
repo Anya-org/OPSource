@@ -46,11 +46,11 @@ chacha20poly1305 = "0.10.1"
 aes-gcm = "0.10.3"
 hmac = "0.12.1"
 pbkdf2 = "0.12.2"
-# rust-dlc = { git = "https://github.com/p2pderivatives/rust-dlc", tag = "v0.4.0" }
+rust-dlc = { git = "https://github.com/p2pderivatives/rust-dlc", tag = "v0.4.0" }
 rgb-core = { git = "https://github.com/RGB-WG/rgb-core", tag = "v0.10.8" }
 rgb-std = { git = "https://github.com/RGB-WG/rgb-std", tag = "v0.10.5" }
-# rsk-jvm = { git = "https://github.com/rsksmart/rsk", tag = "PAPYRUS-3.3.1" }
-# clarity-repl = { git = "https://github.com/hirosystems/clarinet", tag = "v1.7.0" }
+rsk-jvm = { git = "https://github.com/rsksmart/rsk", tag = "PAPYRUS-3.3.1" }
+clarity-repl = { git = "https://github.com/hirosystems/clarinet", tag = "v1.7.0" }
 criterion = "0.5.1"
 tempfile = "3.8.1"
 test-log = "0.2.14"
@@ -92,9 +92,10 @@ lazy_static = "1.4"
 rayon = "1.7"
 
 # Bitcoin dependencies
-bitcoin = { version = "0.32.1", features = ["rand", "serde", "taproot"] }
-bdk = { version = "0.30.0", features = ["keys-bip39"] }
+bitcoin = { version = "0.32.1", features = ["rand", "serde"] }
 bitcoincore-rpc = "0.17.0"
+secp256k1 = { version = "0.28.0", features = ["rand", "serde"] }
+bdk = { version = "0.30.0", features = ["keys-bip39"] }
 miniscript = "10.0.0"
 
 # Lightning dependencies
@@ -106,7 +107,7 @@ lightning-invoice = { version = "0.26.0", optional = true }
 lightning-net-tokio = { version = "0.0.116", optional = true }
 
 # Optional dependencies
-# rust-dlc = { git = "https://github.com/p2pderivatives/rust-dlc", tag = "v0.4.0", optional = true }
+rust-dlc = { git = "https://github.com/p2pderivatives/rust-dlc", tag = "v0.4.0", optional = true }
 rgb-core = { git = "https://github.com/RGB-WG/rgb-core", tag = "v0.10.8", optional = true }
 rgb-std = { git = "https://github.com/RGB-WG/rgb-std", tag = "v0.10.5", optional = true }
 web5 = { git = "https://github.com/TBD54566975/web5-rs", package = "web5", tag = "v4.0.0", optional = true }

@@ -152,13 +152,6 @@ cargo run --bin installer -- install --yes
 # Advanced installation with specific components
 cargo run --bin installer -- install --opsource --setup-wallet --setup-dao --with-ml --ml-framework tensorflow --auto-config-ml
 
-# Build the project
-cargo build --release
-
-# Run tests
-cargo test --all-features
-```
-
 #### Installation Options
 
 The unified installer supports various installation options:
@@ -199,7 +192,7 @@ cargo run --bin installer -- test --component ml
 cargo run --bin installer -- test --json
 ```
 
-### Quick Start
+## Quick Start
 
 ```rust
 use anya_bitcoin::{wallet, transaction};
@@ -325,6 +318,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
+### Web5 DID Creation
+
+```rust
+// Create a decentralized identifier
+let did = web5::create_did(wallet)?;
+println!("Your DID: {}", did.to_string());
+
+// Create a verifiable credential
+let credential = web5::issue_credential(
+    did,
+    "EmailCredential",
+    json!({ "email": "user@example.com" }),
+)?;
+
+// Anchor the credential to the Bitcoin blockchain
+let txid = web5::anchor_credential(wallet, &credential).await?;
+```
+
 ## Example Use Cases
 
 ### Discrete Log Contracts (DLC)
@@ -425,54 +436,28 @@ let result = rsk::call_contract(
 )?;
 ```
 
-### Web5 DID Creation
-
-```rust
-// Create a decentralized identifier
-let did = web5::create_did(wallet)?;
-println!("Your DID: {}", did.to_string());
-
-// Create a verifiable credential
-let credential = web5::issue_credential(
-    did,
-    "EmailCredential",
-    json!({ "email": "user@example.com" }),
-)?;
-
-// Anchor the credential to the Bitcoin blockchain
-let txid = web5::anchor_credential(wallet, &credential).await?;
-```
-
 ## Security
 
 OPSource implements state-of-the-art security practices:
 
-- **Regular Security Audits**: Continuous vulnerability scanning
-- **Dependency Management**: Automated updates for security patches
-- **Static Analysis**: Comprehensive code quality checks
-- **Fuzzing**: Automated testing against unexpected inputs
-- **Peer Review**: All code changes undergo thorough review
-
-See [SECURITY_FIXES.md](./SECURITY_FIXES.md) for security updates and vulnerability fixes.
-
-## Migration from Python
-
-We're in the process of migrating from Python to Rust. See [RUST_MIGRATION_PLAN.md](./RUST_MIGRATION_PLAN.md) for details on our phased approach to this transition.
+- **Zero Trust Architecture**: All components verified before trusted
+- **Formal Verification**: Critical components formally verified for correctness
+- **Regular Audits**: Continuous security audits by third-party specialists
+- **Open Source Security**: Transparent code review process
+- **Defense in Depth**: Multiple security layers to mitigate different threats
 
 ## Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please check our [Contribution Guidelines](CONTRIBUTING.md) for details.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Resources
+## Acknowledgments
 
-- [Rust Bitcoin Book](https://rust-bitcoin.org/book/)
-- [Bitcoin Dev Kit Documentation](https://bitcoindevkit.org/)
-- [Lightning Dev Kit](https://lightningdevkit.org/)
-- [RGB Protocol Documentation](https://docs.rgb.info/)
-- [RSK Documentation](https://developers.rsk.co/)
-- [Stacks Documentation](https://docs.stacks.co/)
-- [TBD Web5](https://developer.tbd.website/projects/web5/)
+- Bitcoin Core Team for their pioneering work on Bitcoin
+- Rust Bitcoin community for their excellent libraries
+- TBD for their work on Web5 standards
+- The RGB community for asset protocol development
+- Lightning Network developers for payment channel innovation
