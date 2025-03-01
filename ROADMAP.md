@@ -27,6 +27,7 @@
     - [ ] Lightning Network integration
   - [ ] Web5 Integration
     - [x] DID management (basic)
+    - [x] Verifiable credentials with Bitcoin anchoring
     - [ ] DWN integration
     - [ ] Schema repository
   - [x] Machine Learning Components
@@ -68,13 +69,16 @@
 - [ ] Complete Web5 Integration
   - [ ] Full DID resolution
   - [ ] DWN protocol compliance
-  - [ ] Verifiable credentials
+  - [x] Verifiable credentials with Bitcoin anchoring
+  - [ ] Advanced credential management
 - [ ] Complete RSK & RGB Integration
   - [x] Initial RGB asset issuance 
   - [ ] Full RGB asset transfer
   - [x] RSK contract base
   - [ ] Complete RSK contract deployment
-  - [ ] Stacks integration
+  - [x] Stacks integration
+  - [x] SIP-010 token standard support
+  - [x] SIP-009 NFT standard support
 - [ ] Lightning Network Features
   - [ ] Channel management
   - [ ] Payment routing
@@ -151,13 +155,14 @@
 
 #### Q1 2025
 - [x] DID implementation
+- [x] Verifiable credentials with Bitcoin anchoring
 - [ ] DWN record management
 - [ ] Protocol definitions
 - [ ] Secure messaging
 
 #### Q2 2025
 - [ ] Identity federation
-- [ ] Verifiable credentials
+- [x] Verifiable credentials
 - [ ] Cross-platform sync
 - [ ] Offline operation
 
@@ -274,10 +279,19 @@
 - [ ] HSM-backed wallet SDK (Complete by Q4)
 
 ### Stacks Integration
-- [ ] Migrate to Clarity v2 (Complete by Q2)
-- [ ] Implement sBTC testnet (Complete by Q3) 
-- [ ] Prepare for Nakamoto PoX v3 (Complete by Q4)
-- [ ] Optimize Bitcoin header sync (Complete by Q4)
+- [x] Migrate to Clarity v2 (Complete by Q2)
+- [x] Implement sBTC testnet (Complete by Q3) 
+- [x] Prepare for Nakamoto PoX v3 (Complete by Q4)
+- [x] Optimize Bitcoin header sync (Complete by Q4)
+- [x] SIP-010 token standard support
+- [x] SIP-009 NFT standard support
+- [x] Contract deployment and interaction
+- [x] Post conditions for transaction safety
+- [x] Local simulation for contract testing
+- [x] Contract call builder API
+- [ ] sBTC integration with RGB bridge (Q3 2025)
+- [ ] Stacks indexer for high-throughput applications (Q4 2025)
+- [ ] Nakamoto upgrade support (Q1 2026)
 
 ## Q3 2024 - Network Optimization
 

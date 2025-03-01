@@ -2,6 +2,22 @@
 
 This document outlines the security fixes and updates implemented to address vulnerabilities identified in our dependencies.
 
+## Current Security Vulnerabilities (March 1, 2025)
+
+GitHub has identified 6 vulnerabilities in the OPSource repository:
+- 1 Critical vulnerability
+- 4 High vulnerabilities
+- 1 Moderate vulnerability
+
+These vulnerabilities are being tracked through GitHub's Dependabot and will be addressed with priority. The security team is currently reviewing each reported issue and preparing fixes.
+
+### Action Plan (March 1-5, 2025):
+1. Analyze each vulnerability report in detail
+2. Prioritize fixes based on severity and potential impact
+3. Create dedicated patches for each vulnerability
+4. Test fixes in isolated environments
+5. Apply updates in a controlled manner
+
 ## Critical Vulnerabilities Fixed
 
 ### 1. Cryptography Package Update (February 28, 2025)
@@ -47,6 +63,26 @@ We've enhanced our security monitoring with the following measures:
    - Pinned all dependencies to specific versions
    - Added explicit dependency checks in CI pipeline
    - Implemented specific branch protection rules for security fixes
+
+## Security Enhancements
+
+### 1. Web5 Verifiable Credentials Security (March 1, 2025)
+- **Enhancement**: Implemented Bitcoin blockchain anchoring for verifiable credentials
+- **Impact**: High - Significantly improves tamper resistance and auditability of credentials
+- **Details**: 
+  - Credentials are now anchored to the Bitcoin blockchain using OP_RETURN outputs
+  - Only credential hashes are stored on-chain, preserving privacy
+  - Verification process checks blockchain confirmations to validate credential authenticity
+  - Implemented secure revocation mechanism using the Bitcoin blockchain
+  - Added transaction confirmation monitoring to prevent acceptance of unconfirmed credentials
+  - Sensitive credential data remains off-chain with only tamper-evident references on-chain
+  - Implemented safeguards against transaction malleability attacks
+
+### 2. Private Key Management:
+   - Implemented BIP-32 hierarchical deterministic wallets in Rust
+   - Added support for hardware security modules (HSMs) for key protection
+   - Implemented BIP-39 mnemonic seed phrases with secure storage recommendations
+   - Added key rotation mechanisms and multi-signature support
 
 ## Rust Migration Security Enhancements (February 28, 2025)
 

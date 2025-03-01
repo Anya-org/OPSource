@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Bitcoin-anchored verifiable credentials for Web5 integration
+- OP_RETURN transaction support for credential anchoring
+- Credential verification via Bitcoin blockchain confirmation
+- Revocation support for anchored credentials
+- Credential status tracking with blockchain info
+- Integration testing for the complete credential anchoring lifecycle
 - Dual Bitcoin implementation with Python and Rust support
 - Feature flag system for implementation selection
 - Comprehensive test suite for both implementations
