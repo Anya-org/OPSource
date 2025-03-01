@@ -8,7 +8,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/botshelomokoka/anya-core"
 
 [dependencies]
-bitcoin = { version = "0.32.1", features = ["rand", "serde"] }
+bitcoin = { version = "0.32.1", features = ["rand", "serde", "taproot"] }
 secp256k1 = { version = "0.28.0", features = ["rand", "serde"] }
 bitcoincore-rpc = "0.17.0"
 tokio = { version = "1.41.1", features = ["full"] }

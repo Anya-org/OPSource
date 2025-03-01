@@ -88,7 +88,11 @@ anya-core/
 ### Web5 Integration
 
 - **Decentralized Identifiers (DIDs)**: Self-sovereign identity management
-- **Decentralized Web Nodes (DWNs)**: Personal data storage and management
+- **Decentralized Web Nodes (DWNs)**: Personal data storage and management with Bitcoin anchoring
+  - **Enhanced Storage**: Store and manage encrypted user data
+  - **Bitcoin Anchoring**: Anchor DWN messages to Bitcoin for data integrity
+  - **Anchoring Verification**: Verify data integrity through blockchain confirmation
+  - **Status Tracking**: Monitor message status with confirmations and block info
 - **Verifiable Credentials**: Privacy-preserving attestations with Bitcoin anchoring
   - **OP_RETURN Anchoring**: Securely anchor credential hashes to the Bitcoin blockchain
   - **Revocation Support**: Revoke credentials through Bitcoin transactions
@@ -114,15 +118,15 @@ anya-core/
 - ✅ **RSK Integration**: Base implementation for EVM-compatible smart contracts
 - ✅ **RGB Framework**: Initial framework for RGB asset issuance
 - ✅ **Stacks Integration**: Complete implementation with SIP-010 tokens and SIP-009 NFTs
-- ✅ **Web5 Basics**: Core DID methods and Bitcoin-anchored verifiable credentials
+- ✅ **Web5 Basics**: Core DID methods, Bitcoin-anchored verifiable credentials, and DWN with Bitcoin anchoring
 - ✅ **ML Support**: Hardware detection and auto-configuration
 - ✅ **Rust Migration**: Over 50% of codebase migrated to Rust
 
 ### In Progress:
 - 🔄 **Lightning Network**: Integration with LDK (10% complete)
 - 🔄 **RGB Asset Transfer**: Full transfer functionality (60% complete)
-- 🔄 **Web5 Extensions**: Advanced DID capabilities (30% complete)
-- 🔄 **API Layer**: RESTful API implementation (75% complete)
+- 🔄 **Web5 Extensions**: Advanced DID capabilities and schema repository (30% complete)
+- 🔄 **API Layer**: RESTful API implementation (85% complete)
 
 ### Next Major Release:
 Beta v0.6.0 expected on March 15, 2025, will include expanded API documentation and extended test coverage.

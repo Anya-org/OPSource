@@ -25,10 +25,10 @@
     - [x] UTXO handling
     - [x] Address management
     - [ ] Lightning Network integration
-  - [ ] Web5 Integration
+  - [x] Web5 Integration
     - [x] DID management (basic)
     - [x] Verifiable credentials with Bitcoin anchoring
-    - [ ] DWN integration
+    - [x] DWN integration
     - [ ] Schema repository
   - [x] Machine Learning Components
     - [x] Hardware detection
@@ -44,7 +44,7 @@
     - [x] Actix Web server setup
     - [x] JWT authentication
     - [x] WebSocket support
-    - [ ] API routes implementation
+    - [x] API routes implementation
 
 ### RC Release (v0.9.0) - April 1, 2025
 
@@ -135,9 +135,9 @@
 
 #### Q1 2025
 - [x] Protocol interface design
-- [x] Taproot descriptor support
-- [ ] Transaction signing flow
-- [ ] UTXO management
+- [ ] Implement adapters for Bitcoin
+- [ ] Implement adapters for Web5
+- [ ] Implement adapters for ML
 
 #### Q2 2025
 - [ ] Lightning Network integration
@@ -156,7 +156,7 @@
 #### Q1 2025
 - [x] DID implementation
 - [x] Verifiable credentials with Bitcoin anchoring
-- [ ] DWN record management
+- [x] DWN record management
 - [ ] Protocol definitions
 - [ ] Secure messaging
 

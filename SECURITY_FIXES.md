@@ -84,6 +84,35 @@ We've enhanced our security monitoring with the following measures:
    - Implemented BIP-39 mnemonic seed phrases with secure storage recommendations
    - Added key rotation mechanisms and multi-signature support
 
+## Web5 Security Enhancements
+
+### Bitcoin Anchoring Security (March 1, 2025)
+- **Enhancement**: Implemented Bitcoin anchoring for Web5 DWN
+- **Impact**: High - Significantly improves data integrity and non-repudiation
+- **Details**: 
+  - Added cryptographic anchoring of DWN messages to the Bitcoin blockchain
+  - Implemented confirmation tracking for anchored data
+  - Created verification mechanisms to validate anchoring status
+  - Added protection against data tampering through blockchain immutability
+
+### Verifiable Credentials Security (February 15, 2025)
+- **Enhancement**: Implemented Bitcoin-anchored verifiable credentials
+- **Impact**: High - Enhances credential security and verification
+- **Details**:
+  - Added Bitcoin transaction anchoring for credential issuance
+  - Implemented blockchain-based revocation mechanisms
+  - Created secure credential status tracking system
+  - Enhanced protection against credential forgery
+  
+### DID Security Improvements (February 1, 2025)
+- **Enhancement**: Enhanced DID security mechanisms
+- **Impact**: Medium - Improves overall identity security
+- **Details**:
+  - Implemented key rotation capabilities for DIDs
+  - Added secure key recovery mechanisms
+  - Enhanced protection against identity spoofing
+  - Improved validation of DID documents
+
 ## Rust Migration Security Enhancements (February 28, 2025)
 
 As part of our migration to Rust, we've implemented the following security enhancements:
@@ -142,26 +171,6 @@ As part of our migration to Rust, we've implemented the following security enhan
    - Added proper validation for contract execution outcomes
    - Implemented secure oracle attestation verification
    - Added protection against replay attacks in DLCs
-
-## Web5 Security Enhancements
-
-1. **Decentralized Identity (DID) Security**:
-   - Implemented secure DID creation and resolution
-   - Added proper signature verification for DID documents
-   - Implemented secure key management for DIDs
-   - Added secure credential issuance and verification
-
-2. **Decentralized Web Node (DWN) Security**:
-   - Implemented secure message encryption and authentication
-   - Added proper access control for DWN resources
-   - Implemented secure data synchronization
-   - Added protection against unauthorized access
-
-3. **Handshake Security**:
-   - Implemented secure name resolution
-   - Added proper verification of Handshake name proofs
-   - Implemented secure name updates and transfers
-   - Added protection against name squatting attacks
 
 ## Future Security Roadmap
 
