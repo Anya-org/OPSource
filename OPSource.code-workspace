@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "OPSource"
+		}
+	],
+	"settings": {
+		"powershell.cwd": "Downloads",
+		"windsurf.autoExecutionPolicy": "turbo"
+	}
+}
