@@ -29,7 +29,7 @@
 
 ```bash
 # Initial setup
-git clone https://github.com/botshelomokoka/OPSource.git
+git clone https://github.com/Anya-org/OPSource-Repository.git
 cd OPSource
 ./scripts/setup_env.sh development
 
