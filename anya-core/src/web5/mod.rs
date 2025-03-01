@@ -15,12 +15,16 @@ mod data;
 mod protocols;
 mod messaging;
 mod storage;
+mod read_first_dwn;
+mod metrics;
 
 pub use identity::{DID, IdentityManager};
 pub use data::{DWNRecord, DataManager};
 pub use protocols::{Protocol, ProtocolManager};
 pub use messaging::{Message, MessageManager};
 pub use storage::{StorageProvider, LocalStorage};
+pub use read_first_dwn::ReadFirstDwnManager;
+pub use metrics::ReadFirstMetrics;
 
 /// Configuration options for Web5 functionality
 #[derive(Debug, Clone)]
