@@ -39,7 +39,35 @@ store.delete_record("record_id").await?;
 let results = store.query_records("users", Some(filter)).await?;
 ```
 
-### 2. Caching System
+### 2. Read First Always Principle
+The Read First Always principle is a fundamental data consistency pattern implemented throughout Web5 components:
+
+```rust
+// Use the ReadFirstDwnManager instead of direct DWN operations
+let manager = ReadFirstDwnManager::new(Arc::new(web5_client));
+
+// Create operation (will automatically query similar records first)
+let record = manager.create_record(&CreateRecordOptions {
+    data: serde_json::to_string(&data)?,
+    schema: "https://schema.org/VerifiableCredential".to_string(),
+    data_format: "application/json".to_string(),
+})?;
+
+// Update operation (will automatically read the record first)
+let updated_record = manager.update_record(&record.id, &UpdateRecordOptions {
+    data: serde_json::to_string(&updated_data)?,
+    data_format: "application/json".to_string(),
+})?;
+
+// Get metrics for compliance monitoring
+let metrics = manager.get_metrics();
+println!("Read count: {}, Write count: {}, Compliance: {}%",
+    metrics.read_count, metrics.write_count, metrics.compliance_rate());
+```
+
+For detailed information, see the [Read First Always documentation](./READ_FIRST_ALWAYS.md).
+
+### 3. Caching System
 The caching system provides performance optimization:
 
 ```rust
@@ -55,7 +83,7 @@ let result = store.get_cached("key").await?;
 store.set_cached("key", value, Some(ttl)).await?;
 ```
 
-### 3. Batch Operations
+### 4. Batch Operations
 For efficient bulk data processing:
 
 ```rust
@@ -77,7 +105,7 @@ updates.insert("id2", json!({ "status": "inactive" }));
 store.bulk_update("users", updates).await?;
 ```
 
-### 4. Event System
+### 5. Event System
 The event system enables real-time notifications:
 
 ```rust
@@ -101,7 +129,7 @@ event_publisher.publish_event(
 ).await?;
 ```
 
-### 5. Health Monitoring
+### 6. Health Monitoring
 Monitor system health and performance:
 
 ```rust
