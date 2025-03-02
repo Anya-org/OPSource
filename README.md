@@ -122,6 +122,14 @@ anya-core/
 - ✅ **ML Support**: Hardware detection and auto-configuration
 - ✅ **Rust Migration**: Over 50% of codebase migrated to Rust
 
+### Checkpoint System
+
+OPSource utilizes a checkpoint system to ensure the integrity and consistency of the blockchain. This system involves periodically anchoring the state of the blockchain to the Bitcoin blockchain, providing a secure and tamper-proof record of all transactions and smart contract executions.
+
+- **Checkpoint Frequency**: Checkpoints are created every 1000 blocks
+- **Checkpoint Data**: Includes the current state of the blockchain, including all transactions and smart contract executions
+- **Anchoring Mechanism**: Checkpoints are anchored to the Bitcoin blockchain using OP_RETURN transactions
+
 ### In Progress:
 - 🔄 **Lightning Network**: Integration with LDK (10% complete)
 - 🔄 **RGB Asset Transfer**: Full transfer functionality (60% complete)
