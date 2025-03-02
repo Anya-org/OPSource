@@ -1,18 +1,28 @@
-# Anya Core Platform
+# Anya Core Platform [AIR-3][AIS-3][AIT-3][AIM-3][AIP-3][AIE-3][BPC-3][W5C-3][DID-3][PFM-2][SCL-2][RES-3][UXA-2][DAO-3]
 
-A powerful platform combining Bitcoin/crypto functionality, ML-based analytics, and Web5 decentralized data management.
+A powerful platform combining Bitcoin/crypto functionality, ML-based analytics,
+and Web5 decentralized data management.
 
-> For Enterprise features and capabilities, please see our [Enterprise Platform Documentation](./enterprise/README.md)
+> For Enterprise features and capabilities, please see our
+> [Enterprise Platform Documentation](./enterprise/README.md)
 
 ![Anya Architecture](docs/images/anya_architecture.png)
 
+> **AI Labeling**: This project follows the [comprehensive AI Labeling System](AI_LABELLING.md) 
+> based on the Bitcoin Development Framework v2.5 standards. All components are labeled with
+> appropriate Core and Extended category labels.
+
 ## Licensing
 
-This core platform is released under the [MIT License](LICENSE.md), allowing for free use, modification, and distribution. However, please note that the [Enterprise features](./enterprise/README.md) are subject to a separate proprietary license with different terms, including revenue sharing requirements. See the [Enterprise License](./enterprise/LICENSE) for details.
+This core platform is released under the [MIT License](LICENSE.md), allowing for
+free use, modification, and distribution. However, please note that the
+[Enterprise features](./enterprise/README.md) are subject to a separate
+proprietary license with different terms, including revenue sharing requirements.
+See the [Enterprise License](./enterprise/LICENSE) for details.
 
 ## Core Features
 
-### Hexagonal Architecture
+### Hexagonal Architecture [AIR-3][AIS-3][AIT-3][PFM-2][SCL-3][RES-3]
 
 - Clean separation of concerns with ports and adapters
 - Domain-driven design principles
@@ -21,7 +31,7 @@ This core platform is released under the [MIT License](LICENSE.md), allowing for
 - Comprehensive health monitoring
 - Thread-safe caching layer
 
-### Blockchain Integration
+### Blockchain Integration [AIR-3][AIS-3][AIT-3][AIP-3][BPC-3][PFM-2][RES-3][SCL-2]
 
 - Bitcoin Core & Lightning Network support
 - DLC (Discreet Log Contracts)
@@ -30,7 +40,7 @@ This core platform is released under the [MIT License](LICENSE.md), allowing for
 - Cross-chain capabilities
 - Custom chain support
 
-### Machine Learning & AI
+### Machine Learning & AI [AIR-3][AIS-3][AIT-3][AIM-3][AIP-3][AIE-3][PFM-2][SCL-2][RES-2]
 
 - Model optimization
 - Federated learning
@@ -38,7 +48,7 @@ This core platform is released under the [MIT License](LICENSE.md), allowing for
 - Basic analytics
 - Prediction models
 
-### Web5 Integration & Storage
+### Web5 Integration & Storage [AIR-3][AIS-3][AIT-3][AIP-3][W5C-3][DID-3][PFM-2][SCL-3][RES-2]
 
 - Decentralized Web Nodes (DWN)
 - Decentralized data storage
@@ -51,7 +61,7 @@ This core platform is released under the [MIT License](LICENSE.md), allowing for
 - Identity management
 - Custom protocols
 
-### Decentralized Communication
+### Decentralized Communication [AIR-3][AIS-3][AIT-2][AIP-3][PFM-2][SCL-2][RES-3]
 
 - Nostr protocol integration (NIPs 01, 02, 04, 05, 13, 15, 20)
 - End-to-end encrypted messaging
@@ -60,15 +70,15 @@ This core platform is released under the [MIT License](LICENSE.md), allowing for
 - Simple key subscription system
 - Secure key management and backup
 
-### Development Infrastructure
+### Development Infrastructure [AIR-3][AIS-2][AIT-3][PFM-2]
 
 - Comprehensive checkpoint system
-- AI labeling integration (AIR, AIS, AIT, AIM, AIP, AIE)
+- AI labeling integration (Core and Extended categories)
 - Automated checkpoint creation (merges, thresholds)
 - Development milestone tracking
 - GitHub Actions workflow integration
 
-### Monitoring & Metrics
+### Monitoring & Metrics [AIR-3][AIM-3][PFM-3][RES-3][SCL-2]
 
 - Distributed tracing
 - Performance metrics
@@ -98,7 +108,7 @@ ml-core = { version = "0.1.0" }
 
 ## Quick Start
 
-1. **Clone and Setup**
+### 1. Clone and Setup
 
 ```bash
 # Clone the repository
@@ -112,7 +122,7 @@ cd anya-core
 cargo build --release
 ```
 
-2. **Configuration**
+### 2. Configuration
 
 ```env
 # Web5 Settings
@@ -135,7 +145,7 @@ TRACING_ENDPOINT=http://localhost:4317
 
 ## Documentation
 
-### System Architecture
+### System Architecture Documentation
 
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Hexagonal Design](docs/HEXAGONAL.md)
@@ -143,7 +153,7 @@ TRACING_ENDPOINT=http://localhost:4317
 - [ML System](docs/ML_SYSTEM_ARCHITECTURE.md)
 - [Web5 Integration](docs/WEB5_INTEGRATION.md)
 
-### Development
+### Development Documentation
 
 - [API Reference](docs/API.md)
 - [Contributing Guide](CONTRIBUTING.md)
@@ -151,8 +161,9 @@ TRACING_ENDPOINT=http://localhost:4317
 - [Testing Strategy](docs/TESTING.md)
 - [Checkpoint System](docs/CHECKPOINT_SYSTEM.md)
 - [Checkpoint Guide](docs/CHECKPOINT_GUIDE.md)
+- [AI and Component Labeling Guide](AI_LABELLING.md)
 
-### Deployment
+### Deployment Documentation
 
 - [Deployment Guide](docs/DEPLOYMENT.md)
 - [Configuration Guide](docs/CONFIGURATION.md)
@@ -160,7 +171,7 @@ TRACING_ENDPOINT=http://localhost:4317
 
 ## Core Components
 
-### ML Component
+### ML Component Features [AIR-3][AIS-3][AIT-3][AIM-3][AIP-3][AIE-3][PFM-2][SCL-2][RES-2]
 
 - Advanced model management and execution
 - Real-time inference with metrics tracking
@@ -170,7 +181,7 @@ TRACING_ENDPOINT=http://localhost:4317
 - Support for distributed training
 - Model A/B testing capabilities
 
-### Security Component
+### Security Component Features [AIR-3][AIS-3][AIT-3][AIP-3][PFM-2][RES-3]
 
 - Comprehensive security operations
   - Authentication and authorization
@@ -182,7 +193,7 @@ TRACING_ENDPOINT=http://localhost:4317
 - Policy management and enforcement
 - Compliance tracking and reporting
 
-### Protocol Component
+### Protocol Component Features [AIR-3][AIS-3][AIT-3][BPC-3][PFM-3][RES-3][SCL-2]
 
 - Advanced transaction handling
   - Multiple operation types (Create, Sign, Broadcast)
@@ -195,7 +206,7 @@ TRACING_ENDPOINT=http://localhost:4317
 - PSBT support
 - Multi-signature operations
 
-### Enterprise Component
+### Enterprise Component Features [AIR-3][AIS-3][AIT-3][BPC-3][PFM-3][RES-3][SCL-3][DAO-3]
 
 - Comprehensive business operations
   - Atomic swaps
@@ -210,28 +221,28 @@ TRACING_ENDPOINT=http://localhost:4317
 - Batch operation support
 - Workflow management
 
-## System Architecture
+## System Architecture [AIR-3][AIS-3][AIT-3][PFM-3][SCL-3][RES-3]
 
 ### Core Design Principles
 
-1. **Memory Safety**
+1. **Memory Safety** [AIR-3][AIS-3][RES-3]
    - Rust's ownership system
    - Thread-safe primitives
    - Resource management
 
-2. **Error Handling**
+2. **Error Handling System** [AIR-3][AIS-3][AIT-3][RES-3]
    - Comprehensive error types
    - Validation at multiple layers
    - Error aggregation and analysis
    - Retry strategies
 
-3. **Metrics & Monitoring**
+3. **Metrics & Monitoring System** [AIR-3][AIM-3][PFM-3][RES-3]
    - Unified metrics collection
    - Health checks
    - Performance tracking
    - Alerting system
 
-4. **Security**
+4. **Security Architecture** [AIR-3][AIS-3][AIP-3][RES-3]
    - Context validation
    - Audit logging
    - Threat detection
@@ -239,7 +250,7 @@ TRACING_ENDPOINT=http://localhost:4317
 
 ### Implementation Details
 
-#### Repository Layer
+#### Repository Layer Details [AIR-3][AIS-3][PFM-2][SCL-2]
 
 - CRUD operations
 - Data validation
@@ -247,7 +258,7 @@ TRACING_ENDPOINT=http://localhost:4317
 - Transaction management
 - Audit logging
 
-#### Service Layer
+#### Service Layer Components [AIR-3][AIS-3][AIT-3][PFM-3][RES-3]
 
 - Business logic
 - Operation processing
@@ -255,7 +266,7 @@ TRACING_ENDPOINT=http://localhost:4317
 - Metrics collection
 - Health monitoring
 
-#### Handler Layer
+#### Handler Layer Organization [AIR-3][AIS-3][AIT-2][PFM-2]
 
 - Request/response mapping
 - Input validation
@@ -263,55 +274,55 @@ TRACING_ENDPOINT=http://localhost:4317
 - Metrics tracking
 - Security enforcement
 
-## Testing Strategy
+## Testing Strategy [AIR-3][AIT-3][RES-2]
 
-### Unit Testing
+### Unit Testing Approach [AIT-3]
 
 - Component-level tests
 - Mock implementations
 - Error case coverage
 - Performance benchmarks
 
-### Integration Testing
+### Integration Testing Methods [AIT-3][PFM-2]
 
 - Cross-component testing
 - End-to-end scenarios
 - Performance testing
 - Security testing
 
-### Property Testing
+### Property Testing Framework [AIT-3][AIS-3]
 
 - Invariant verification
 - Fuzz testing
 - Boundary testing
 - Concurrency testing
 
-## Performance Optimization
+## Performance Optimization [AIR-3][PFM-3][SCL-3]
 
-### Caching
+### Caching Strategy [PFM-3][SCL-3]
 
 - In-memory caching
 - Distributed caching
 - Cache invalidation
 - Cache metrics
 
-### Concurrency
+### Concurrency Model [PFM-3][SCL-3][RES-3]
 
 - Async operations
 - Thread pooling
 - Resource management
 - Deadlock prevention
 
-### Monitoring
+### Monitoring Capabilities [AIM-3][PFM-3]
 
 - Performance metrics
 - Resource utilization
 - Bottleneck detection
 - Trend analysis
 
-## Deployment
+## Deployment Requirements
 
-### Requirements
+### System Requirements
 
 - Rust 1.70+
 - Bitcoin Core 24.0+
@@ -319,9 +330,9 @@ TRACING_ENDPOINT=http://localhost:4317
 - PostgreSQL 14+
 - Redis 7+
 
-### Configuration
+### Configuration Options
 
-```env
+```bash
 # Core Settings
 RUST_LOG=info
 RUST_BACKTRACE=1
@@ -343,9 +354,10 @@ ENCRYPTION_KEY=<secure-key>
 JWT_SECRET=<jwt-secret>
 ```
 
-## Configuration
+## Configuration System [AIR-3][AIS-3][SCL-2]
 
-The Anya platform uses a flexible configuration system that supports multiple configuration sources:
+The Anya platform uses a flexible configuration system that supports multiple
+configuration sources:
 
 1. **Configuration Files** (`config/`)
    - `default.yaml`: Default configuration values
@@ -361,7 +373,7 @@ The Anya platform uses a flexible configuration system that supports multiple co
    - Credentials are managed through the `CredentialManager`
    - Never commit `.env` files containing secrets
 
-### Configuration Structure
+### Configuration Structure Example
 
 ```yaml
 network:
@@ -380,7 +392,7 @@ features:
   quantum_resistant: false
 ```
 
-### Dynamic Configuration
+### Dynamic Configuration Capabilities [AIR-3][PFM-3][SCL-3]
 
 The platform supports dynamic configuration updates:
 
@@ -388,13 +400,13 @@ The platform supports dynamic configuration updates:
 - Timelock periods scale with network activity
 - Performance thresholds adapt to usage patterns
 
-### Security
+### Security Configuration [AIR-3][AIS-3][AIP-3]
 
 - Sensitive configuration is encrypted at rest
 - Credentials are stored securely using the `SecureStorage` module
 - Environment-specific secrets are managed via `.env` files (not committed to VCS)
 
-## Decentralized Governance (DAO)
+## Decentralized Governance (DAO) [AIR-3][AIS-3][AIT-3][AIP-3][AIE-3][DAO-3]
 
 ### Governance Token (AGT)
 
@@ -405,40 +417,40 @@ The platform supports dynamic configuration updates:
   - Time-weighted participation
   - Expertise-based multipliers
 
-### Governance Features
+### Governance System Features [AIR-3][DAO-3][AIP-3]
 
-- **Proposal Framework**
+- **Proposal Framework**:
   - Low barrier to entry (100 AGT proposal threshold)
   - Multi-dimensional proposal evaluation
   - ML-driven proposal scoring
   - Adaptive governance parameters
 
-### Governance Intelligence
+### Governance Intelligence [AIR-3][AIM-3][AIE-3][DAO-3]
 
-- **Machine Learning Enhanced**
+- **Machine Learning Enhanced**:
   - Predictive proposal outcome analysis
   - Risk assessment modeling
   - Sentiment analysis integration
   - Dynamic governance optimization
 
-### Cross-Platform Governance
+### Cross-Platform Governance [AIR-3][DAO-3][BPC-2][W5C-3]
 
-- **Multi-Chain Compatibility**
+- **Multi-Chain Compatibility**:
   - Stacks Blockchain Integration
   - Web5 Decentralized Identity Support
   - Interoperability Protocols
 
-### Governance Security
+### Governance Security Measures [AIR-3][AIS-3][DAO-3][RES-3]
 
-- **Advanced Protection Mechanisms**
+- **Advanced Protection Mechanisms**:
   - Multi-signature proposal execution
   - Intelligent threat detection
   - Automated security audits
   - Zero-knowledge proof governance
 
-### Compliance and Ethics
+### Compliance and Ethics Framework [AIR-3][AIE-3][DAO-3]
 
-- **Governance Principles**
+- **Governance Principles**:
   - Transparent decision-making
   - Privacy-preserving technologies
   - Ethical AI governance
@@ -462,13 +474,14 @@ The platform supports dynamic configuration updates:
 
 ### Governance Manifesto
 
-*"Intelligence is our governance, decentralization is our method, and human potential is our ultimate goal."*
+> "Intelligence is our governance, decentralization is our method, and
+> human potential is our ultimate goal."
 
-## Storage Architecture
+## Storage Architecture [AIR-3][AIS-3][AIP-3][W5C-3][DID-3][SCL-3]
 
 Anya uses Web5's Decentralized Web Nodes (DWN) for all data storage, providing:
 
-### Features
+### Storage Features
 
 - **Decentralized Storage**: Data is stored across the DWN network
 - **Identity-Based Access**: Data access is controlled by DIDs
@@ -477,7 +490,7 @@ Anya uses Web5's Decentralized Web Nodes (DWN) for all data storage, providing:
 - **Automatic Replication**: Data is replicated across nodes
 - **Flexible Querying**: Rich query capabilities for data retrieval
 
-### Data Types
+### Data Types Supported
 
 - User profiles and preferences
 - Transaction records
@@ -486,7 +499,7 @@ Anya uses Web5's Decentralized Web Nodes (DWN) for all data storage, providing:
 - System configurations
 - Audit logs
 
-### Benefits
+### Storage Benefits
 
 - No central database dependency
 - Built-in encryption and security
@@ -495,17 +508,17 @@ Anya uses Web5's Decentralized Web Nodes (DWN) for all data storage, providing:
 - Protocol-based data validation
 - Offline-first capability
 
-## Contributing
+## Contributing Guidelines
 
-We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! See our Contributing Guide for details.
 
-## Project Status
+## Project Status Information
 
 - **Current Version**: 1.0.0
 - **Status**: Production/Stable
 - **Last Update**: 2024-01-05
 
-## License
+## License Information
 
 This project is licensed under either of:
 
@@ -514,14 +527,16 @@ This project is licensed under either of:
 
 at your option.
 
-## Links
+## Additional Resources
 
-- [Documentation](https://docs.anya.ai)
-- [API Reference](https://api.anya.ai)
-- [Community Forum](https://community.anya.ai)
-- [Development Blog](https://blog.anya.ai)
+### External Links
 
-## Acknowledgments
+- [Documentation](https://docs.anya-core.org)
+- [API Reference](https://api.anya-core.org)
+- [Community Forum](https://community.anya-core.org)
+- [Development Blog](https://blog.anya-core.org)
+
+### Acknowledgments
 
 Special thanks to our contributors and the following projects:
 
@@ -531,4 +546,6 @@ Special thanks to our contributors and the following projects:
 - TBD
 - Block
 
-*Last updated: 2024-12-07*
+### Last Updated
+
+*2024-12-07*

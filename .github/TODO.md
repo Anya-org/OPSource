@@ -137,4 +137,3 @@ Last updated: 2025-03-02 08:24:58
 ## setup_dev.py
 
 - [setup_dev.py:214] Please change the RPC credentials in bitcoin.conf before running in production")
-
