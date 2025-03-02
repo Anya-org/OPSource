@@ -1,133 +1,37 @@
 # TODO Report
-Generated on: 2025-03-01 15:18:24
+Generated on: 2025-03-02 04:31:01
 
 ## Summary
-- Total TODOs: 60
+- Total TODOs: 12
 - Critical (P0): 0
 - High Priority (P1): 0
-- Normal Priority (P2): 60
+- Normal Priority (P2): 12
 - Low Priority (P3): 0
 
 ## Uncategorized
 
 ### Normal Priority (normal)
 
-- [ ] TODO(unassigned)[p2-normal]: Actual index update logic
-  - File: `anya-core/src/ml/agents/system_map.rs:193`
-- [ ] TODO(unassigned)[p2-normal]: Actual map update logic
-  - File: `anya-core/src/ml/agents/system_map.rs:296`
-- [ ] TODO(unassigned)[p2-normal]: Actual model aggregation logic
-  - File: `anya-core/src/ml/agents/federated_agent.rs:309`
 - [ ] TODO(unassigned)[p2-normal]: Add your license here.
   - File: `anya-core/packages/dash33/LICENSE:1`
 - [ ] TODO(unassigned)[p2-normal]: Describe initial release.
   - File: `anya-core/packages/dash33/CHANGELOG.md:3`
-- [ ] TODO(unassigned)[p2-normal]: Implement DID document updates with proper signatures
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:339`
-- [ ] TODO(unassigned)[p2-normal]: Implement DID registration with external verifier
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:345`
-- [ ] TODO(unassigned)[p2-normal]: Implement DLC creation
-  - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:279`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual ML-based document validation
-  - File: `anya-core/src/ml/agents/web5_agent.rs:180`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual anomaly detection with ML model
-  - File: `anya-core/src/ml/agents/web5_agent.rs:241`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual bidding logic
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:165`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual cryptographic verification
-  - File: `anya-core/src/ml/agents/web5_agent.rs:229`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual delete handling
-  - File: `anya-core/src/ml/agents/web5_agent.rs:323`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual intent classification with ML model
-  - File: `anya-core/src/ml/agents/web5_agent.rs:305`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual lookup against Handshake nodes
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:146`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual memory and disk space checks
-  - File: `anya-core/src/bin/installer.rs:107`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual message parsing
-  - File: `anya-core/src/ml/agents/web5_agent.rs:299`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual query handling
-  - File: `anya-core/src/ml/agents/web5_agent.rs:311`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual registration logic
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:210`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual renewal logic
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:273`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual reveal logic
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:188`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual schema validation
-  - File: `anya-core/src/ml/agents/web5_agent.rs:235`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual store handling
-  - File: `anya-core/src/ml/agents/web5_agent.rs:317`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual transfer logic
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:301`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual trust scoring
-  - File: `anya-core/src/ml/agents/web5_agent.rs:247`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual unknown message handling
-  - File: `anya-core/src/ml/agents/web5_agent.rs:335`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual update handling
-  - File: `anya-core/src/ml/agents/web5_agent.rs:329`
-- [ ] TODO(unassigned)[p2-normal]: Implement actual update logic
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:246`
-- [ ] TODO(unassigned)[p2-normal]: Implement advanced aggregation algorithms
-  - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:200`
-- [ ] TODO(unassigned)[p2-normal]: Implement credential revocation
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:500`
-- [ ] TODO(unassigned)[p2-normal]: Implement differential privacy techniques
-  - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:198`
-- [ ] TODO(unassigned)[p2-normal]: Implement more sophisticated backup
-  - File: `anya-core/dependencies/anya-bitcoin/src/wallet.rs:564`
-- [ ] TODO(unassigned)[p2-normal]: Implement natural language processing capabilities
-  - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:202`
-- [ ] TODO(unassigned)[p2-normal]: Implement network resolution
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:298`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper Taproot script paths
-  - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:263`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper fee estimation with mempool analysis
-  - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:134`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper filtering
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/dwn.rs:314`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper multisig PSBT creation
-  - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:200`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper signature verification
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:325`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper signing
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:247`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper signing
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:457`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper transaction history
-  - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:244`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper verification
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/dwn.rs:321`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper verification
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:485`
-- [ ] TODO(unassigned)[p2-normal]: Implement proper verification of the signature
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:356`
-- [ ] TODO(unassigned)[p2-normal]: Implement secure aggregation using the SPDZ protocol
-  - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:199`
 - [ ] TODO(unassigned)[p2-normal]: Include short and useful examples for package users. Add longer examples
   - File: `anya-core/packages/dash33/README.md:28`
-- [ ] TODO(unassigned)[p2-normal]: Integrate with external AI services for enhanced functionality
-  - File: `anya-core/dependencies/anya-enterprise/src/ml/mod.rs:201`
 - [ ] TODO(unassigned)[p2-normal]: List prerequisites and provide or point to information on how to
   - File: `anya-core/packages/dash33/README.md:23`
 - [ ] TODO(unassigned)[p2-normal]: List what your package can do. Maybe include images, gifs, or videos.
   - File: `anya-core/packages/dash33/README.md:19`
-- [ ] TODO(unassigned)[p2-normal]: Load the actual model here
-  - File: `anya-core/src/ml/agents/web5_agent.rs:132`
-- [ ] TODO(unassigned)[p2-normal]: Load the actual model here
-  - File: `anya-core/src/ml/agents/web5_agent.rs:142`
 - [ ] TODO(unassigned)[p2-normal]: Put a short description of the package here that helps potential users
   - File: `anya-core/packages/dash33/README.md:14`
-- [ ] TODO(unassigned)[p2-normal]: Retrieve the private key associated with the DID
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:305`
-- [ ] TODO(unassigned)[p2-normal]: Save transaction metadata
-  - File: `anya-core/dependencies/anya-bitcoin/src/transaction.rs:180`
-- [ ] TODO(unassigned)[p2-normal]: Store the model data for aggregation
-  - File: `anya-core/src/ml/agents/federated_agent.rs:276`
-- [ ] TODO(unassigned)[p2-normal]: Store the private key securely
-  - File: `anya-core/dependencies/anya-bitcoin/src/web5/did.rs:269`
 - [ ] TODO(unassigned)[p2-normal]: Tell users more about the package: where to find more information, how to
   - File: `anya-core/packages/dash33/README.md:37`
+- [ ] TODO(todo)[p2-normal]: high
+  - File: `anya-core/lib/src/api/server.dart:47`
+- [ ] TODO(todo)[p2-normal]: high
+  - File: `anya-core/lib/src/api/server.dart:68`
+- [ ] TODO(todo)[p2-normal]: high
+  - File: `anya-core/lib/src/api/server.dart:84`
 - [ ] TODO(todo)[p2-normal]: high
   - File: `src/core/wallet.py:18`
 - [ ] TODO(todo)[p2-normal]: normal
@@ -140,6 +44,6 @@ Generated on: 2025-03-01 15:18:24
 - Assignees should be GitHub usernames or team names
 
 ## Recent Changes
-- 2025-03-01 15:18:24: Updated TODO report
-- 2025-03-01 15:18:24: Migrated archived TODOs
-- 2025-03-01 15:18:24: Standardized TODO format
+- 2025-03-02 04:31:01: Updated TODO report
+- 2025-03-02 04:31:01: Migrated archived TODOs
+- 2025-03-02 04:31:01: Standardized TODO format
