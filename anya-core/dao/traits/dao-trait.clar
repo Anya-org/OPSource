@@ -1,3 +1,6 @@
+;; Anya DAO Trait Interface
+;; Defines the standard functions that must be implemented by any DAO contract
+
 (define-trait dao-trait
     (
         ;; Token Management
