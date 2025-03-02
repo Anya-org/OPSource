@@ -1,6 +1,6 @@
 # Project TODOs
 
-Last updated: 2025-03-02 05:37:32
+Last updated: 2025-03-02 05:56:26
 
 ## .github
 
@@ -63,6 +63,38 @@ Last updated: 2025-03-02 05:37:32
 
 ## anya-core
 
+- [anya-core/dependencies/anya-bitcoin/src/transaction.rs:134] Implement proper fee estimation with mempool analysis
+- [anya-core/dependencies/anya-bitcoin/src/transaction.rs:180] Save transaction metadata
+- [anya-core/dependencies/anya-bitcoin/src/transaction.rs:200] Implement proper multisig PSBT creation
+- [anya-core/dependencies/anya-bitcoin/src/transaction.rs:244] Implement proper transaction history
+- [anya-core/dependencies/anya-bitcoin/src/transaction.rs:263] Implement proper Taproot script paths
+- [anya-core/dependencies/anya-bitcoin/src/transaction.rs:279] Implement DLC creation
+- [anya-core/dependencies/anya-bitcoin/src/wallet.rs:564] Implement more sophisticated backup
+- [anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:247] Implement proper signing
+- [anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:356] Implement proper verification of the signature
+- [anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:457] Implement proper signing
+- [anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:485] Implement proper verification
+- [anya-core/dependencies/anya-bitcoin/src/web5/credential.rs:500] Implement credential revocation
+- [anya-core/dependencies/anya-bitcoin/src/web5/did.rs:269] Store the private key securely
+- [anya-core/dependencies/anya-bitcoin/src/web5/did.rs:298] Implement network resolution
+- [anya-core/dependencies/anya-bitcoin/src/web5/did.rs:305] Retrieve the private key associated with the DID
+- [anya-core/dependencies/anya-bitcoin/src/web5/did.rs:325] Implement proper signature verification
+- [anya-core/dependencies/anya-bitcoin/src/web5/did.rs:339] Implement DID document updates with proper signatures
+- [anya-core/dependencies/anya-bitcoin/src/web5/did.rs:345] Implement DID registration with external verifier
+- [anya-core/dependencies/anya-bitcoin/src/web5/dwn.rs:314] Implement proper filtering
+- [anya-core/dependencies/anya-bitcoin/src/web5/dwn.rs:321] Implement proper verification
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:146] Implement actual lookup against Handshake nodes
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:165] Implement actual bidding logic
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:188] Implement actual reveal logic
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:210] Implement actual registration logic
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:246] Implement actual update logic
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:273] Implement actual renewal logic
+- [anya-core/dependencies/anya-bitcoin/src/web5/handshake.rs:301] Implement actual transfer logic
+- [anya-core/dependencies/anya-enterprise/src/ml/mod.rs:198] Implement differential privacy techniques
+- [anya-core/dependencies/anya-enterprise/src/ml/mod.rs:199] Implement secure aggregation using the SPDZ protocol
+- [anya-core/dependencies/anya-enterprise/src/ml/mod.rs:200] Implement advanced aggregation algorithms
+- [anya-core/dependencies/anya-enterprise/src/ml/mod.rs:201] Integrate with external AI services for enhanced functionality
+- [anya-core/dependencies/anya-enterprise/src/ml/mod.rs:202] Implement natural language processing capabilities
 - [anya-core/scripts/progress_automation.rs:110] Add implementation details\n}}\n",
 - [anya-core/src/bin/installer.rs:107] Implement actual memory and disk space checks
 - [anya-core/src/bitcoin/dlc/oracle.rs:190] actual implementation would use SECP256K1)
