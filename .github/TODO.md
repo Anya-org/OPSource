@@ -1,6 +1,6 @@
 # Project TODOs
 
-Last updated: 2025-03-02 05:16:07
+Last updated: 2025-03-02 05:23:16
 
 ## .github
 
@@ -64,6 +64,16 @@ Last updated: 2025-03-02 05:16:07
 ## anya-core
 
 - [anya-core/scripts/progress_automation.rs:110] Add implementation details\n}}\n",
+- [anya-core/src/bin/installer.rs:107] Implement actual memory and disk space checks
+- [anya-core/src/bitcoin/dlc/oracle.rs:190] actual implementation would use SECP256K1)
+- [anya-core/src/ml/agents/federated_agent.rs:276] Store the model data for aggregation
+- [anya-core/src/ml/agents/federated_agent.rs:309] Actual model aggregation logic
+- [anya-core/src/ml/agents/system_map.rs:193] Actual index update logic
+- [anya-core/src/ml/agents/system_map.rs:296] Actual map update logic
+- [anya-core/src/web5/mod.rs:217] In a real implementation, we wouldn't use a static reference
+- [anya-core/src/web5/mod.rs:365] In a real implementation, we wouldn't use a static reference
+- [anya-core/src/web5/mod.rs:443] In a real implementation, we wouldn't use a static reference
+- [anya-core/src/web5/mod.rs:521] In a real implementation, we wouldn't use a static reference
 
 ## docs
 
