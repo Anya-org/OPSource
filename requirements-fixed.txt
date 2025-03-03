@@ -74,7 +74,7 @@ platformdirs==4.3.6
 pycparser==2.22
 pycryptodome==3.21.1
 pydantic==2.10.6
-pydantic_core==2.29.0
+pydantic_core==2.30.0
 Pygments==2.19.1
 PyJWT==2.10.1
 python-dotenv==1.0.1
