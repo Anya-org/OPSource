@@ -50,6 +50,7 @@ Welcome to the Anya Core documentation. This index will help you navigate the va
 ## Key Features at a Glance
 
 ### DAO & Tokenomics System
+
 - **Bitcoin-Style Tokenomics**: 21 billion token supply with halving mechanism
 - **Strategic Distribution**: 30% DEX, 15% development team, 55% DAO/community
 - **Enhanced Governance**: Advanced proposal creation, voting, and execution
@@ -57,24 +58,28 @@ Welcome to the Anya Core documentation. This index will help you navigate the va
 - **Comprehensive Logging**: Complete transparency for all operations
 
 ### Hexagonal Architecture
+
 - Clean separation of concerns with ports and adapters
 - Domain-driven design principles
 - Advanced error handling and telemetry
 - Circuit breaker pattern implementation
 
 ### Bitcoin & Lightning Integration
+
 - Bitcoin Core support
 - Lightning Network capabilities
 - DLC (Discreet Log Contracts)
 - Taproot/Schnorr signatures
 
 ### Web5 Integration
+
 - Decentralized Web Nodes (DWN)
 - Decentralized Identity (DID)
 - Protocol-based data management
 - Encrypted storage
 
 ### AI & Machine Learning
+
 - Model management and execution
 - Real-time inference
 - Performance monitoring
@@ -102,5 +107,3 @@ Welcome to the Anya Core documentation. This index will help you navigate the va
 - [GitHub Discussions](https://github.com/anya/anya-core/discussions)
 
 *This documentation follows the [AI Labeling System](AI_LABELLING.md) standards based on the Bitcoin Development Framework v2.5. All components are labeled with appropriate Core and Extended category labels.*
-
-
