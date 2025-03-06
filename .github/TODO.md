@@ -1,6 +1,6 @@
 # Project TODOs
 
-Last updated: 2025-03-06 01:19:42
+Last updated: 2025-03-06 08:11:46
 
 ## .github
 
@@ -106,6 +106,7 @@ Last updated: 2025-03-06 01:19:42
 - [anya-core/src/web5/mod.rs:365] In a real implementation, we wouldn't use a static reference
 - [anya-core/src/web5/mod.rs:443] In a real implementation, we wouldn't use a static reference
 - [anya-core/src/web5/mod.rs:521] In a real implementation, we wouldn't use a static reference
+- [anya-core/tests/sectional_test_utils.rs:159] This is a basic approximation and should be used with caution
 
 ## docs
 
@@ -133,6 +134,7 @@ Last updated: 2025-03-06 01:19:42
 - [scripts/todo_aggregator.py:17] FIXME|HACK|XXX|NOTE)[:|\s](.+?)(?:\n|$)')
 - [scripts/todo_aggregator.py:129] aggregator
 - [scripts/todo_aggregator.py:132] markdown
+- [scripts/update_milestones.py:134] = f"Implementation uses minimal heap allocations ({memory_progress}% optimized)"
 
 ## setup_dev.py
 
