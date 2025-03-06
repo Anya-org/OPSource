@@ -64,7 +64,7 @@ ml-dtypes==0.4.1
 mnemonic==0.21
 mpmath==1.3.0
 multidict==6.1.0
-mypy==1.14.1
+mypy==1.15.0
 mypy-extensions==1.0.0
 namex==0.0.8
 networkx==3.4.2
@@ -83,11 +83,11 @@ pycodestyle==2.12.1
 pycparser==2.22
 pycryptodome==3.21.1
 pydantic==2.10.6
-pydantic_core==2.29.0
+pydantic_core==2.30.0
 pyflakes==3.2.0
 Pygments==2.19.1
 PyJWT==2.10.1
-pytest==8.3.4
+pytest==8.3.5
 pytest-asyncio==0.25.3
 python-bitcoinlib==0.12.2
 python-bitcoinrpc==1.0
@@ -119,7 +119,7 @@ toolz==1.0.0
 torch==2.6.0
 tqdm==4.67.1
 transformers==4.48.2
-types-requests==2.32.0.20241016
+types-requests==2.32.0.20250301
 typing_extensions==4.12.2
 urllib3==2.3.0
 uvicorn==0.34.0
