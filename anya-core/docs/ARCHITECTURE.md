@@ -9,6 +9,7 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 ## Core Components
 
 ### 1. Domain Layer (Core)
+
 - Business logic and rules
 - Domain entities and value objects
 - Use cases and domain services
@@ -16,7 +17,9 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 - Error types and handling
 
 ### 2. Application Layer (Ports)
+
 #### Input Ports (Primary/Driving)
+
 - Command handlers
 - Query handlers
 - Event handlers
@@ -24,6 +27,7 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 - RPC interfaces
 
 #### Output Ports (Secondary/Driven)
+
 - Repository interfaces
 - External service interfaces
 - Messaging interfaces
@@ -31,7 +35,9 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 - Storage interfaces
 
 ### 3. Infrastructure Layer (Adapters)
+
 #### Input Adapters
+
 - REST API controllers
 - gRPC handlers
 - CLI commands
@@ -39,6 +45,7 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 - Message consumers
 
 #### Output Adapters
+
 - Database repositories
 - External service clients
 - Message publishers
@@ -48,6 +55,7 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 ## System Architecture
 
 ### 1. Web5 Integration
+
 - Decentralized identity (DID) management
 - Web5 protocol implementation
 - Schema validation
@@ -56,6 +64,7 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 - Caching and batch operations
 
 ### 2. Bitcoin Integration
+
 - Core Bitcoin functionality with RPC client
 - Transaction validation and processing
 - Network management and monitoring
@@ -64,6 +73,7 @@ Anya Core is built on a hexagonal architecture (ports and adapters) pattern, emp
 - Multi-signature support
 
 ### 3. Error Handling System
+
 ```rust
 // Comprehensive error handling with context
 pub struct ErrorContext {
@@ -83,6 +93,7 @@ pub struct CircuitBreaker {
 ```
 
 ### 4. Event System
+
 ```rust
 // Event types and metadata
 pub struct Event {
@@ -106,6 +117,7 @@ pub struct EventSubscriber {
 ```
 
 ### 5. Health Monitoring
+
 - Component-level health tracking
 - System metrics collection
 - Real-time health status
@@ -114,6 +126,7 @@ pub struct EventSubscriber {
 - Event-driven health updates
 
 ### 6. Caching System
+
 ```rust
 // LRU cache with TTL support
 pub struct Web5Cache {
@@ -130,6 +143,7 @@ pub trait Cache {
 ```
 
 ### 7. Batch Operations
+
 ```rust
 // Batch processing with rate limiting
 pub struct BatchProcessor<S: DataStore> {
@@ -146,6 +160,7 @@ pub enum BatchOperationType {
 ```
 
 ### 8. Metrics & Monitoring
+
 - Real-time performance metrics
 - Custom business metrics
 - Error and failure metrics
@@ -154,6 +169,7 @@ pub enum BatchOperationType {
 - Circuit breaker monitoring
 
 ### 9. Security Layer
+
 - Multi-factor authentication
 - Role-based access control
 - Audit logging
@@ -162,6 +178,7 @@ pub enum BatchOperationType {
 - HSM integration
 
 ### 10. Machine Learning System
+
 - Federated learning
 - Model optimization
 - Privacy-preserving ML
@@ -169,9 +186,192 @@ pub enum BatchOperationType {
 - Predictive analytics
 - Risk assessment
 
+### 7. Layer 2 Integrations
+
+Anya Core implements a comprehensive hexagonal architecture for Bitcoin Layer 2 solutions, with support for multiple protocols including BOB (Bitcoin Optimistic Blockchain), RGB Protocol, and RSK Sidechain.
+
+#### Layer 2 Protocol Architecture
+
+The Layer 2 integration follows our hexagonal architecture pattern with clearly defined ports and adapters:
+
+**Domain Layer (Core)**
+
+- L2 transaction models and validation rules
+- Protocol-specific verification logic
+- Cross-layer state management
+- Smart contract execution environment
+- Asset management and issuance rules
+
+**Application Layer (Ports)**
+
+- Input Ports:
+  - L2 transaction submission
+  - Smart contract execution
+  - Asset issuance and management
+  - Protocol-specific operations
+  - Cross-layer synchronization
+
+- Output Ports:
+  - Bitcoin relay interaction
+  - Protocol state access
+  - Asset state querying
+  - Cross-layer state management
+  - Verification result handling
+
+**Infrastructure Layer (Adapters)**
+
+- Input Adapters:
+  - Protocol-specific RPC clients
+  - Smart contract interfaces
+  - Asset management adapters
+  - Verification adapters
+  - State synchronization adapters
+
+- Output Adapters:
+  - Bitcoin relay clients
+  - Protocol state repositories
+  - Asset state repositories
+  - Cross-layer transaction processors
+  - Verification result handlers
+
+**Protocol-Specific Implementations:**
+
+1. BOB (Bitcoin Optimistic Blockchain)
+
+```rust
+// BOB Protocol Adapter
+pub struct BobProtocolAdapter {
+    rpc_client: BobRpcClient,
+    state_manager: BobStateManager,
+    verification: BobVerification
+}
+
+// BOB Transaction Model
+pub struct BobTransaction {
+    l2_tx_hash: Hash,
+    bitcoin_tx_hash: Hash,
+    proof: BobProof,
+    state_root: Hash
+}
+```
+
+2. RGB Protocol
+
+```rust
+// RGB Protocol Adapter
+pub struct RgbProtocolAdapter {
+    taproot_client: TaprootClient,
+    asset_manager: RgbAssetManager,
+    state_tracker: RgbStateTracker
+}
+
+// RGB Asset Model
+pub struct RgbAsset {
+    asset_id: AssetId,
+    taproot_key: PublicKey,
+    supply: u64,
+    precision: u8
+}
+```
+
+3. RSK Sidechain
+
+```rust
+// RSK Protocol Adapter
+pub struct RskProtocolAdapter {
+    sidechain_client: RskClient,
+    bridge_manager: RskBridgeManager,
+    verification: RskVerification
+}
+
+// RSK Transaction Model
+pub struct RskTransaction {
+    sidechain_tx_hash: Hash,
+    bitcoin_tx_hash: Hash,
+    merkle_proof: MerkleProof,
+    state_root: Hash
+}
+```
+
+**Integration Architecture:**
+
+```
+┌───────────────────────────────────────────────────────────────────┐
+│                        Anya Core System                           │
+│                                                                   │
+│  ┌───────────────┐    ┌───────────────┐    ┌───────────────┐     │
+│  │               │    │               │    │               │     │
+│  │  Bitcoin      │    │  Layer 2      │    │  Protocol     │     │
+│  │  Integration  │◄──►│  Protocols    │◄──►│  Adapters     │     │
+│  │               │    │               │    │               │     │
+│  └───────┬───────┘    └───────┬───────┘    └───────┬───────┘     │
+│          │                    │                    │             │
+│  ┌───────▼───────────────────▼────────────────────▼───────┐     │
+│  │                                                         │     │
+│  │                 Hexagonal Architecture                  │     │
+│  │                Core Domain Services                     │     │
+│  │                                                         │     │
+│  └─────────────────────────────┬───────────────────────────┘     │
+│                                │                                  │
+│  ┌─────────────────────────────▼───────────────────────────┐     │
+│  │                                                         │     │
+│  │                 Infrastructure Layer                    │     │
+│  │                Protocol Implementations                 │     │
+│  │                                                         │     │
+│  └─────────────────────────────────────────────────────────┘     │
+└───────────────────────────────────────────────────────────────────┘
+```
+
+**Compliance Matrix:**
+
+| Protocol | BIP 341/342 | BIP 174 | Miniscript | Testnet |
+|----------|-------------|---------|------------|---------|
+| BOB      | ✓          | ✓       | ✓          | ✓       |
+| RGB      | ✓          | ✓       | ✓          | ✓       |
+| RSK      | ✓          | ✓       | ✓          | ✓       |
+
+**Security Considerations:**
+
+- Protocol-specific validation rules
+- Cross-layer transaction verification
+- Asset state consistency checks
+- Bridge security monitoring
+- Fraud proof handling
+- State transition verification
+
+**Performance Metrics:**
+
+- Transaction throughput
+- Cross-layer latency
+- State synchronization time
+- Asset operation latency
+- Verification overhead
+- Resource utilization
+
+### 8. Consensus Mechanisms
+
+```rust
+// Comprehensive error handling with context
+pub struct ErrorContext {
+    error: HexagonalError,
+    severity: ErrorSeverity,
+    trace_id: Option<String>,
+    retry_count: u32,
+    metrics: ErrorMetrics
+}
+
+// Circuit breaker pattern
+pub struct CircuitBreaker {
+    state: CircuitState,
+    failure_threshold: u32,
+    reset_timeout: Duration
+}
+```
+
 ## Component Interaction
 
 ### 1. Request Flow
+
 ```mermaid
 graph LR
     A[Client] --> B[Input Port]
@@ -181,6 +381,7 @@ graph LR
 ```
 
 ### 2. Web5 Data Flow
+
 ```mermaid
 graph LR
     A[Client] --> B[Web5Store]
@@ -191,6 +392,7 @@ graph LR
 ```
 
 ### 3. Error Handling Flow
+
 ```mermaid
 graph TD
     A[Error Occurs] --> B[Error Context]
@@ -201,6 +403,7 @@ graph TD
 ```
 
 ### 4. Health Monitoring Flow
+
 ```mermaid
 graph TD
     A[Health Check] --> B[Component Status]
@@ -213,6 +416,7 @@ graph TD
 ## Implementation Details
 
 ### 1. Domain Layer
+
 ```rust
 // Core domain types
 pub trait DomainService {
@@ -227,6 +431,7 @@ pub trait DomainEvent {
 ```
 
 ### 2. Application Layer
+
 ```rust
 // Input ports
 #[async_trait]
@@ -243,6 +448,7 @@ pub trait Repository<T> {
 ```
 
 ### 3. Infrastructure Layer
+
 ```rust
 // Input adapter
 pub struct RestController {
@@ -258,6 +464,7 @@ pub struct PostgresRepository {
 ```
 
 ### 4. Web5 Layer
+
 ```rust
 // Web5 store with caching and events
 pub struct Web5Store {
@@ -278,6 +485,7 @@ pub struct HealthStatus {
 ## Error Handling Strategy
 
 ### 1. Error Classification
+
 - Domain Errors
 - Application Errors
 - Infrastructure Errors
@@ -285,12 +493,14 @@ pub struct HealthStatus {
 - Security Errors
 
 ### 2. Error Recovery
+
 - Retry Mechanisms
 - Circuit Breaker
 - Fallback Strategies
 - Compensation Actions
 
 ### 3. Error Monitoring
+
 - Error Metrics
 - Error Patterns
 - Recovery Success Rate
@@ -299,6 +509,7 @@ pub struct HealthStatus {
 ## Monitoring and Metrics
 
 ### 1. System Health
+
 - Component health status
 - Service availability
 - Performance metrics
@@ -306,6 +517,7 @@ pub struct HealthStatus {
 - Error rates and patterns
 
 ### 2. Operational Metrics
+
 - Cache hit rates
 - Batch operation throughput
 - Event processing latency
@@ -313,6 +525,7 @@ pub struct HealthStatus {
 - DID resolution performance
 
 ### 3. Core Metrics
+
 - Transaction throughput
 - Error rates and types
 - Response times
@@ -320,6 +533,7 @@ pub struct HealthStatus {
 - Cache hit rates
 
 ### 4. Business Metrics
+
 - Transaction volumes
 - User activity
 - Feature usage
@@ -327,6 +541,7 @@ pub struct HealthStatus {
 - Business KPIs
 
 ### 5. ML Metrics
+
 - Model accuracy
 - Training performance
 - Prediction latency
@@ -336,18 +551,21 @@ pub struct HealthStatus {
 ## Security Considerations
 
 ### 1. Authentication
+
 - Multi-factor authentication
 - Token management
 - Session handling
 - Identity verification
 
 ### 2. Authorization
+
 - Role-based access control
 - Permission management
 - Policy enforcement
 - Access auditing
 
 ### 3. Data Protection
+
 - Encryption at rest
 - Secure communication
 - Key management
@@ -356,12 +574,14 @@ pub struct HealthStatus {
 ## Development Guidelines
 
 ### 1. Code Organization
+
 - Domain-driven structure
 - Clean architecture principles
 - SOLID principles
 - Dependency injection
 
 ### 2. Testing Strategy
+
 - Unit tests
 - Integration tests
 - Property-based tests
@@ -369,6 +589,7 @@ pub struct HealthStatus {
 - Security tests
 
 ### 3. Documentation
+
 - API documentation
 - Architecture diagrams
 - Component interaction
@@ -378,6 +599,7 @@ pub struct HealthStatus {
 ## ML Agent System
 
 ### Auto-Adjustment System (`src/ml/auto_adjust.rs`)
+
 The auto-adjustment system provides dynamic resource management and system optimization:
 
 ```rust
@@ -390,6 +612,7 @@ AutoAdjustSystem {
 ```
 
 Key features:
+
 - Dynamic resource scaling
 - Health-based adjustments
 - Emergency handling
@@ -397,6 +620,7 @@ Key features:
 - Configuration management
 
 ### Agent Coordinator (`src/ml/agents/coordinator.rs`)
+
 Manages agent interactions and resource allocation:
 
 ```rust
@@ -409,6 +633,7 @@ AgentCoordinator {
 ```
 
 Capabilities:
+
 - Resource management
 - Dynamic scaling
 - Performance monitoring
@@ -416,6 +641,7 @@ Capabilities:
 - Emergency procedures
 
 ### ML Agent Interface (`src/ml/agents/mod.rs`)
+
 Defines the core agent capabilities:
 
 ```rust
@@ -437,7 +663,9 @@ trait MLAgent {
 ## Web5 Integration
 
 ### Web5Store (`src/storage/web5_store.rs`)
+
 Provides decentralized data storage with:
+
 - DID-based authentication
 - Schema validation
 - Event notifications
@@ -445,14 +673,18 @@ Provides decentralized data storage with:
 - Batch operations
 
 ### Batch Processing (`src/web5/batch.rs`)
+
 Handles bulk operations with:
+
 - Rate limiting
 - Concurrent processing
 - Error handling
 - Transaction management
 
 ### Caching System (`src/web5/cache.rs`)
+
 Optimizes data access through:
+
 - LRU caching
 - TTL support
 - Event notifications
@@ -463,12 +695,14 @@ Optimizes data access through:
 ### Auto-Adjustment Flow
 
 1. **Monitoring**
+
    ```
    [System Metrics] -> [Health Monitor] -> [Auto-Adjust System]
                                       -> [Metrics Collection]
    ```
 
 2. **Resource Management**
+
    ```
    [Auto-Adjust System] -> [Resource Scaling]
                        -> [Configuration Updates]
@@ -476,6 +710,7 @@ Optimizes data access through:
    ```
 
 3. **Agent Coordination**
+
    ```
    [Agent Coordinator] -> [Resource Allocation]
                       -> [Concurrency Control]
@@ -625,6 +860,7 @@ The system maintains health through multiple layers:
 ## System Overview
 
 Anya is a decentralized ML agent system built on Web5 technology, featuring:
+
 - Adaptive ML agents for various domains
 - Decentralized data storage and processing
 - Comprehensive business and market analysis
@@ -636,6 +872,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 ### 1. ML Agent System
 
 #### Market Agent
+
 - Real-time market analysis
 - Dynamic pricing strategy
 - Trend detection
@@ -643,6 +880,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 - Auto-tuning parameters
 
 #### Business Agent
+
 - Revenue optimization
 - Cost management
 - Profit margin analysis
@@ -650,6 +888,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 - Strategy adaptation
 
 #### Agent Coordinator
+
 - Agent lifecycle management
 - Resource allocation
 - Performance monitoring
@@ -683,6 +922,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 ## Technical Architecture
 
 ### 1. Core Technologies
+
 - Rust async/await
 - Tokio runtime
 - Web5 DID system
@@ -690,6 +930,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 - ML frameworks
 
 ### 2. Data Flow
+
 ```
 [Market Data] → Market Agent → Agent Coordinator
                                      ↓
@@ -699,6 +940,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 ```
 
 ### 3. Security Features
+
 - DID-based authentication
 - Encrypted communication
 - Secure state management
@@ -706,6 +948,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 - Audit logging
 
 ### 4. Performance Optimization
+
 - Adaptive batch sizing
 - Dynamic concurrency
 - Resource pooling
@@ -715,6 +958,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 ## Implementation Details
 
 ### 1. Agent Implementation
+
 - Trait-based design
 - Async operations
 - State management
@@ -722,6 +966,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 - Metrics collection
 
 ### 2. Business Logic
+
 - Revenue tracking
 - Cost analysis
 - Profit optimization
@@ -729,6 +974,7 @@ Anya is a decentralized ML agent system built on Web5 technology, featuring:
 - Risk management
 
 ### 3. System Management
+
 - Health monitoring
 - Resource tracking
 - Performance tuning
