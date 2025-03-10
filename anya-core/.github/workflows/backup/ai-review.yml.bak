@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Code Review
-        uses: reviewdog/reviewdog@v0.11.0
+        uses: reviewdog/action-reviewdog@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tool_name: ai-review
