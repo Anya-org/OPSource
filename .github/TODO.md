@@ -1,6 +1,6 @@
 # Project TODOs
 
-Last updated: 2025-03-10 01:07:30
+Last updated: 2025-03-10 03:25:06
 
 ## .github
 
@@ -98,14 +98,79 @@ Last updated: 2025-03-10 01:07:30
 - [anya-core/scripts/progress_automation.rs:110] Add implementation details\n}}\n",
 - [anya-core/src/bin/installer.rs:107] Implement actual memory and disk space checks
 - [anya-core/src/bitcoin/dlc/oracle.rs:190] actual implementation would use SECP256K1)
+- [anya-core/src/bitcoin/mod.rs:121] This is a simplified signing process
+- [anya-core/src/layer2/dlc/mod.rs:37] Implement actual initialization
+- [anya-core/src/layer2/dlc/mod.rs:43] Implement actual connection
+- [anya-core/src/layer2/dlc/mod.rs:49] Implement actual disconnection
+- [anya-core/src/layer2/dlc/mod.rs:55] Implement actual transaction submission
+- [anya-core/src/layer2/dlc/mod.rs:61] Implement actual status check
+- [anya-core/src/layer2/dlc/mod.rs:67] Implement actual state retrieval
+- [anya-core/src/layer2/dlc/mod.rs:73] Implement actual state sync
+- [anya-core/src/layer2/dlc/mod.rs:79] Implement actual asset issuance
+- [anya-core/src/layer2/dlc/mod.rs:85] Implement actual asset transfer
+- [anya-core/src/layer2/dlc/mod.rs:91] Implement actual proof verification
+- [anya-core/src/layer2/dlc/mod.rs:97] Implement actual state validation
+- [anya-core/src/layer2/lightning/mod.rs:37] Implement actual initialization
+- [anya-core/src/layer2/lightning/mod.rs:43] Implement actual connection
+- [anya-core/src/layer2/lightning/mod.rs:49] Implement actual disconnection
+- [anya-core/src/layer2/lightning/mod.rs:55] Implement actual transaction submission
+- [anya-core/src/layer2/lightning/mod.rs:61] Implement actual status check
+- [anya-core/src/layer2/lightning/mod.rs:67] Implement actual state retrieval
+- [anya-core/src/layer2/lightning/mod.rs:73] Implement actual state sync
+- [anya-core/src/layer2/lightning/mod.rs:79] Implement actual asset issuance
+- [anya-core/src/layer2/lightning/mod.rs:85] Implement actual asset transfer
+- [anya-core/src/layer2/lightning/mod.rs:91] Implement actual proof verification
+- [anya-core/src/layer2/lightning/mod.rs:97] Implement actual state validation
+- [anya-core/src/layer2/liquid/mod.rs:37] Implement actual initialization
+- [anya-core/src/layer2/liquid/mod.rs:43] Implement actual connection
+- [anya-core/src/layer2/liquid/mod.rs:49] Implement actual disconnection
+- [anya-core/src/layer2/liquid/mod.rs:55] Implement actual transaction submission
+- [anya-core/src/layer2/liquid/mod.rs:61] Implement actual status check
+- [anya-core/src/layer2/liquid/mod.rs:67] Implement actual state retrieval
+- [anya-core/src/layer2/liquid/mod.rs:73] Implement actual state sync
+- [anya-core/src/layer2/liquid/mod.rs:79] Implement actual asset issuance
+- [anya-core/src/layer2/liquid/mod.rs:85] Implement actual asset transfer
+- [anya-core/src/layer2/liquid/mod.rs:91] Implement actual proof verification
+- [anya-core/src/layer2/liquid/mod.rs:97] Implement actual state validation
+- [anya-core/src/layer2/mod.rs:159] Replace with actual Lightning client initialization
+- [anya-core/src/layer2/mod.rs:225] Implement Lightning status check
+- [anya-core/src/layer2/stacks/mod.rs:37] Implement actual initialization
+- [anya-core/src/layer2/stacks/mod.rs:43] Implement actual connection
+- [anya-core/src/layer2/stacks/mod.rs:49] Implement actual disconnection
+- [anya-core/src/layer2/stacks/mod.rs:55] Implement actual transaction submission
+- [anya-core/src/layer2/stacks/mod.rs:61] Implement actual status check
+- [anya-core/src/layer2/stacks/mod.rs:67] Implement actual state retrieval
+- [anya-core/src/layer2/stacks/mod.rs:73] Implement actual state sync
+- [anya-core/src/layer2/stacks/mod.rs:79] Implement actual asset issuance
+- [anya-core/src/layer2/stacks/mod.rs:85] Implement actual asset transfer
+- [anya-core/src/layer2/stacks/mod.rs:91] Implement actual proof verification
+- [anya-core/src/layer2/stacks/mod.rs:97] Implement actual state validation
+- [anya-core/src/layer2/state_channels/mod.rs:37] Implement actual initialization
+- [anya-core/src/layer2/state_channels/mod.rs:43] Implement actual connection
+- [anya-core/src/layer2/state_channels/mod.rs:49] Implement actual disconnection
+- [anya-core/src/layer2/state_channels/mod.rs:55] Implement actual transaction submission
+- [anya-core/src/layer2/state_channels/mod.rs:61] Implement actual status check
+- [anya-core/src/layer2/state_channels/mod.rs:67] Implement actual state retrieval
+- [anya-core/src/layer2/state_channels/mod.rs:73] Implement actual state sync
+- [anya-core/src/layer2/state_channels/mod.rs:79] Implement actual asset issuance
+- [anya-core/src/layer2/state_channels/mod.rs:85] Implement actual asset transfer
+- [anya-core/src/layer2/state_channels/mod.rs:91] Implement actual proof verification
+- [anya-core/src/layer2/state_channels/mod.rs:97] Implement actual state validation
+- [anya-core/src/layer2/taproot_assets/mod.rs:37] Implement actual initialization
+- [anya-core/src/layer2/taproot_assets/mod.rs:43] Implement actual connection
+- [anya-core/src/layer2/taproot_assets/mod.rs:49] Implement actual disconnection
+- [anya-core/src/layer2/taproot_assets/mod.rs:55] Implement actual transaction submission
+- [anya-core/src/layer2/taproot_assets/mod.rs:61] Implement actual status check
+- [anya-core/src/layer2/taproot_assets/mod.rs:67] Implement actual state retrieval
+- [anya-core/src/layer2/taproot_assets/mod.rs:73] Implement actual state sync
+- [anya-core/src/layer2/taproot_assets/mod.rs:79] Implement actual asset issuance
+- [anya-core/src/layer2/taproot_assets/mod.rs:85] Implement actual asset transfer
+- [anya-core/src/layer2/taproot_assets/mod.rs:91] Implement actual proof verification
+- [anya-core/src/layer2/taproot_assets/mod.rs:97] Implement actual state validation
 - [anya-core/src/ml/agents/federated_agent.rs:276] Store the model data for aggregation
 - [anya-core/src/ml/agents/federated_agent.rs:309] Actual model aggregation logic
 - [anya-core/src/ml/agents/system_map.rs:193] Actual index update logic
 - [anya-core/src/ml/agents/system_map.rs:296] Actual map update logic
-- [anya-core/src/web5/mod.rs:217] In a real implementation, we wouldn't use a static reference
-- [anya-core/src/web5/mod.rs:365] In a real implementation, we wouldn't use a static reference
-- [anya-core/src/web5/mod.rs:443] In a real implementation, we wouldn't use a static reference
-- [anya-core/src/web5/mod.rs:521] In a real implementation, we wouldn't use a static reference
 - [anya-core/tests/sectional_test_utils.rs:159] This is a basic approximation and should be used with caution
 
 ## docs
