@@ -1,5 +1,5 @@
 # Bitcoin dependencies
-bitcoin==0.32.1
+bitcoin==1.1.42
 bitcoincore-rpc==0.17.0
 python-bitcoinlib==0.12.2
 python-bitcoinrpc==1.0
