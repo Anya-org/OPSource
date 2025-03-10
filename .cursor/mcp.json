@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "tools": [
+    {
+      "name": "bitcoin_protocol_validator",
+      "description": "Validates Bitcoin protocol compliance according to BIP standards",
+      "command": "python scripts/validate_bitcoin_protocol.py",
+      "args": ["--input", "{query}"],
+      "examples": [
+        {
+          "query": "Verify this transaction follows BIP-341 taproot standard",
+          "args": ["--input", "Verify this transaction follows BIP-341 taproot standard"]
+        }
+      ]
+    },
+    {
+      "name": "taproot_asset_creator",
+      "description": "Creates Taproot assets with proper metadata according to the project standards",
+      "command": "node scripts/create_taproot_asset.js",
+      "args": ["--params", "{query}"],
+      "examples": [
+        {
+          "query": "Create asset named TokenX with supply 1000000",
+          "args": ["--params", "Create asset named TokenX with supply 1000000"]
+        }
+      ]
+    },
+    {
+      "name": "bitcoin_security_audit",
+      "description": "Runs security audit on Bitcoin code according to compliance checklist",
+      "command": "python btc_security_check.py",
+      "args": ["--code", "{query}"],
+      "examples": [
+        {
+          "query": "Check this DLC implementation for timing vulnerabilities",
+          "args": ["--code", "Check this DLC implementation for timing vulnerabilities"]
+        }
+      ]
+    }
+  ]
+} 
