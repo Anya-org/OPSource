@@ -82,7 +82,7 @@ pyunormalize==16.0.0
 regex==2024.11.6
 rich==13.9.4
 six==1.17.0
-sympy==1.13.1
+sympy==1.13.3
 tqdm==4.67.1
 typing_extensions==4.12.2
 yarl==1.18.3
