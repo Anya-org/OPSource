@@ -81,7 +81,7 @@ python-dotenv==1.0.1
 PyYAML==6.0.3
 pyunormalize==16.0.0
 regex==2024.11.6
-rich==13.9.4
+rich==14.0.0
 rlp==4.1.0
 safetensors==0.5.2
 six==1.17.0
