@@ -7,7 +7,7 @@ hdwallet==3.3.0
 mnemonic==0.21
 coincurve==20.0.0
 ecdsa==0.19.1
-eth-account==0.13.5
+eth-account==0.13.6
 eth-hash==0.7.1
 eth-keyfile==0.9.1
 eth-keys==0.6.1
