@@ -91,7 +91,7 @@ pytest==8.3.5
 pytest-asyncio==0.25.3
 python-bitcoinlib==0.12.2
 python-bitcoinrpc==1.0
-python-dotenv==1.0.1
+python-dotenv==1.1.0
 pyunormalize==16.0.0
 pywin32==308; sys_platform == 'win32'
 PyYAML==6.0.3
