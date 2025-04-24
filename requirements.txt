@@ -27,7 +27,7 @@ anyio==4.8.0
 fastapi==0.115.8
 httpcore==1.0.7
 httpx==0.28.1
-h11==0.14.0
+h11==0.16.0
 requests==2.32.3
 starlette==0.45.3
 sniffio==1.3.1
@@ -43,7 +43,7 @@ tensorflow-io-gcs-filesystem==0.32.0
 tensorflow_intel==2.18.1; sys_platform == 'win32'
 keras==3.9.2
 scikit-learn==1.6.1
-torch==2.6.0
+torch==2.7.0
 huggingface-hub==0.29.2
 transformers==4.48.2
 tokenizers==0.21.0
