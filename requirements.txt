@@ -5,7 +5,7 @@ python-bitcoinlib==0.12.2
 python-bitcoinrpc==1.0
 hdwallet==3.3.0
 mnemonic==0.21
-coincurve==20.0.0
+coincurve==21.0.0
 ecdsa==0.19.1
 eth-account==0.13.5
 eth-hash==0.7.1
