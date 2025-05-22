@@ -55,7 +55,7 @@ cffi==1.17.1
 charset-normalizer==3.4.1
 click==8.1.8
 colorama==0.4.6
-cryptography==44.0.2
+cryptography==45.0.2
 flatbuffers==25.2.10
 filelock==3.17.0
 frozenlist==1.6.0
