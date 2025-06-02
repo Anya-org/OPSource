@@ -14,7 +14,7 @@ bitarray==3.4.0
 black==25.1.0
 certifi==2025.1.31
 cffi==1.17.1
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
 ckzg==2.1.1
 click==8.1.8
 coincurve==21.0.0
