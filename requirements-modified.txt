@@ -120,7 +120,7 @@ torch==2.7.0
 tqdm==4.67.1
 transformers==4.50.0
 types-requests==2.32.0.20250515
-typing_extensions==4.12.2
+typing_extensions==4.13.2
 urllib3==2.3.0
 uvicorn==0.34.0
 waitress==3.0.2
