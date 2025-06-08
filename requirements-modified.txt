@@ -116,7 +116,7 @@ termcolor==3.1.0
 threadpoolctl==3.6.0
 tokenizers==0.21.0
 toolz==1.0.0
-torch==2.7.0
+torch==2.7.1
 tqdm==4.67.1
 transformers==4.50.0
 types-requests==2.32.0.20250515
