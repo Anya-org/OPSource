@@ -71,7 +71,7 @@ multidict==6.1.0
 packaging==24.2
 platformdirs==4.3.8
 pycparser==2.22
-pycryptodome==3.21.1
+pycryptodome==3.23.0
 pydantic==2.10.6
 pydantic_core==2.34.1
 Pygments==2.19.1
