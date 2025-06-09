@@ -81,7 +81,7 @@ protobuf==6.30.2
 py-sr25519-bindings==0.2.2
 pycodestyle==2.12.1
 pycparser==2.22
-pycryptodome==3.21.1
+pycryptodome==3.23.0
 pydantic==2.10.6
 pydantic_core==2.34.1
 pyflakes==3.2.0
