@@ -79,7 +79,7 @@ pluggy==1.6.0
 propcache==0.3.1
 protobuf==6.30.2
 py-sr25519-bindings==0.2.2
-pycodestyle==2.12.1
+pycodestyle==2.13.0
 pycparser==2.22
 pycryptodome==3.23.0
 pydantic==2.10.6
