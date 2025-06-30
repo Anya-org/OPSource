@@ -114,7 +114,7 @@ tensorflow-io-gcs-filesystem==0.37.1
 tensorflow_intel==2.18.1; sys_platform == 'win32'
 termcolor==3.1.0
 threadpoolctl==3.6.0
-tokenizers==0.21.0
+tokenizers==0.21.2
 toolz==1.0.0
 torch==2.7.1
 tqdm==4.67.1
