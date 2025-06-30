@@ -44,7 +44,7 @@ tensorflow_intel==2.18.1; sys_platform == 'win32'
 keras==3.9.2
 scikit-learn==1.6.1
 torch==2.7.1
-huggingface-hub==0.32.3
+huggingface-hub==0.33.1
 transformers==4.50.0
 tokenizers==0.21.0
 
