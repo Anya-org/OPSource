@@ -45,7 +45,7 @@ keras==3.9.2
 scikit-learn==1.6.1
 torch==2.7.1
 huggingface-hub==0.33.1
-transformers==4.50.0
+transformers==4.53.1
 tokenizers==0.21.2
 
 # Utility dependencies
