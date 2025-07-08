@@ -118,7 +118,7 @@ tokenizers==0.21.2
 toolz==1.0.0
 torch==2.7.1
 tqdm==4.67.1
-transformers==4.50.0
+transformers==4.51.0
 types-requests==2.32.0.20250515
 typing_extensions==4.13.2
 urllib3==2.5.0
