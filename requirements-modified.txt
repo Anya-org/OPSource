@@ -10,7 +10,7 @@ astunparse==1.6.3
 attrs==25.3.0
 base58==2.1.1
 base58check==1.0.2
-bitarray==3.4.2
+bitarray==3.5.0
 black==25.1.0
 certifi==2025.1.31
 cffi==1.17.1
